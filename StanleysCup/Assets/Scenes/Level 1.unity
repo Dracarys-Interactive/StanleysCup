@@ -386,7 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
   secondsBetweenSpawns: 1
-  maximumInstances: 0
+  maximumInstances: 10
   width: 20
   height: 10
 --- !u!4 &448072769
@@ -1024,36 +1024,6 @@ Transform:
   m_Father: {fileID: 1182169993}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1022179605
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1022179606}
-  m_Layer: 0
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1022179606
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022179605}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1054779404}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054779402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,9 +1036,10 @@ GameObject:
   - component: {fileID: 1054779403}
   - component: {fileID: 1054779407}
   - component: {fileID: 1054779408}
-  - component: {fileID: 1054779405}
   - component: {fileID: 1054779406}
   - component: {fileID: 1054779409}
+  - component: {fileID: 1054779405}
+  - component: {fileID: 1054779410}
   m_Layer: 0
   m_Name: Stanley
   m_TagString: Player
@@ -1138,8 +1109,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.056, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_Children:
-  - {fileID: 1022179606}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1152,22 +1122,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1054779402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112002efd92bac04780a75cb9e90c9fc, type: 3}
+  m_Script: {fileID: 11500000, guid: b5cc6f66fe836504eaff51dfd4a0bd68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpForce: 600
-  playerHealth: 1
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheck: {fileID: 1022179606}
-  playerCanMove: 1
-  coinSFX: {fileID: 0}
-  deathSFX: {fileID: 0}
-  fallSFX: {fileID: 0}
-  jumpSFX: {fileID: 0}
-  victorySFX: {fileID: 0}
 --- !u!61 &1054779406
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1228,11 +1185,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &1054779409
 CircleCollider2D:
@@ -1247,9 +1204,23 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.38824877}
+  m_Offset: {x: 0, y: -0.4127537}
   serializedVersion: 2
-  m_Radius: 0.0944024
+  m_Radius: 0.07600144
+--- !u!114 &1054779410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054779402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b106dbb06f897cb4baf0c8b7d846ae1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  jumpForce: 600
 --- !u!1 &1073727296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad,

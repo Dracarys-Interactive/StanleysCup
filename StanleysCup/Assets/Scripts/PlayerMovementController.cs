@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMovementController : MonoBehaviour
+{
+    [Range(0.0f, 10.0f)]
+    public float moveSpeed = 3f;
+    public float jumpForce = 600f;
+
+    private Animator animator;
+    private Rigidbody2D rbody;
+	private float vx;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        rbody = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        if (animator.GetBool("Grounded") && Input.GetButtonDown("Jump"))
+        {
+            rbody.AddForce(new Vector2(0, jumpForce));
+        }
+        else
+        {
+            vx = Input.GetAxisRaw("Horizontal");
+            animator.SetBool("Walking", vx != 0);
+            rbody.velocity = new Vector2(vx * moveSpeed, rbody.velocity.y);
+        }
+
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"),
+            !animator.GetBool("Grounded") && rbody.velocity.y > 0.0f);
+    }
+
+	void LateUpdate()
+	{
+		Vector3 localScale = transform.localScale;
+		bool facingRight = vx > 0;
+
+		if (facingRight && localScale.x < 0 || !facingRight && localScale.x > 0)
+			localScale.x *= -1;
+
+		transform.localScale = localScale;
+	}
+}

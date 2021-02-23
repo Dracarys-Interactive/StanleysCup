@@ -46,7 +46,7 @@ public class CharacterController2D : MonoBehaviour {
 	// player tracking
 	bool facingRight = true;
 	bool isGrounded = false;
-	bool isRunning = false;
+	bool isWalking = false;
 	bool canDoubleJump = false;
 
 	// store the layer the player is on (setup in Awake)
@@ -91,16 +91,16 @@ public class CharacterController2D : MonoBehaviour {
 		// determine horizontal velocity change based on the horizontal input
 		_vx = Input.GetAxisRaw ("Horizontal");
 
-		// Determine if running based on the horizontal movement
+		// Determine if walking based on the horizontal movement
 		if (_vx != 0) 
 		{
-			isRunning = true;
+			isWalking = true;
 		} else {
-			isRunning = false;
+			isWalking = false;
 		}
 
-		// set the running animation state
-		_animator.SetBool("Running", isRunning);
+		// set the walking animation state
+		_animator.SetBool("Walking", isWalking);
 
 		// get the current vertical velocity from the rigidbody component
 		_vy = _rigidbody.velocity.y;

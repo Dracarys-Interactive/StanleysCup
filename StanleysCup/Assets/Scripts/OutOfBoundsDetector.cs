@@ -12,6 +12,9 @@ public class OutOfBoundsDetector : MonoBehaviour
             case "HockeyStickPlatform":
                 Destroy(collision.gameObject);
                 break;
+            case "Player":
+                collision.gameObject.transform.position = Vector3.zero;
+                break;
             default:
                 break;
         }
