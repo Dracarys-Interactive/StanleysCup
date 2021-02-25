@@ -4,19 +4,53 @@ using UnityEngine;
 
 public class OutOfBoundsDetector : MonoBehaviour
 {
+    public Vector2 playerOffset = new Vector2(0, 0.056f);
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-
         switch(collision.tag)
         {
-            case "HockeyStickPlatform":
-                Destroy(collision.gameObject);
-                break;
-            case "Player":
-                collision.gameObject.transform.position = Vector3.zero;
+            case "MovingPlatform":
+                Destroy(collision.gameObject.transform.parent.gameObject);
                 break;
             default:
                 break;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        switch (collision.tag)
+        {
+            case "Player":
+                PlayerOutOfBounds(collision.gameObject);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void PlayerOutOfBounds(GameObject player)
+    {
+        GameObject[] platforms = GameObject.FindGameObjectsWithTag("MovingPlatform");
+        GameObject closestToOrigin = null;
+        float minDistance = 0;
+
+        foreach(GameObject platform in platforms) {
+            float distance = Vector2.Distance(Vector2.zero, platform.gameObject.transform.position);
+            
+            if (closestToOrigin == null || distance < minDistance)
+            {
+                closestToOrigin = platform;
+                minDistance = distance;
+            }
+        }
+
+        if (closestToOrigin)
+        {
+            player.transform.parent = closestToOrigin.transform;
+            player.transform.localPosition = playerOffset;
+            player.GetComponent<Animator>().SetBool("Grounded", true);
         }
     }
 }
