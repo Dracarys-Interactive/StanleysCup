@@ -11,7 +11,7 @@ public class OutOfBoundsDetector : MonoBehaviour
         switch(collision.tag)
         {
             case "MovingPlatform":
-                Destroy(collision.gameObject.transform.parent.gameObject);
+                Destroy(collision.gameObject);
                 break;
             default:
                 break;

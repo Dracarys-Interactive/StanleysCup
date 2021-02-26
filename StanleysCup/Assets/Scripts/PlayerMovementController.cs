@@ -11,6 +11,7 @@ public class PlayerMovementController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rbody;
 	private float vx;
+    private bool jumping = false;
 
     private void Awake()
     {
@@ -20,13 +21,14 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
+        vx = Input.GetAxisRaw("Horizontal");
+
         if (animator.GetBool("Grounded") && Input.GetButtonDown("Jump"))
         {
             rbody.AddForce(new Vector2(0, jumpForce));
         }
         else
         {
-            vx = Input.GetAxisRaw("Horizontal");
             animator.SetBool("Walking", vx != 0);
             rbody.velocity = new Vector2(vx * moveSpeed, rbody.velocity.y);
         }
@@ -37,7 +39,10 @@ public class PlayerMovementController : MonoBehaviour
 
 	void LateUpdate()
 	{
-		Vector3 localScale = transform.localScale;
+        if (vx == 0)
+            return;
+
+        Vector3 localScale = transform.localScale;
 		bool facingRight = vx > 0;
 
 		if (facingRight && localScale.x < 0 || !facingRight && localScale.x > 0)
@@ -45,4 +50,23 @@ public class PlayerMovementController : MonoBehaviour
 
 		transform.localScale = localScale;
 	}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "MovingPlatform")
+        {
+            transform.parent = other.transform;
+            animator.SetBool("Grounded", true);
+        }
+    }
+
+    // if the player exits a collision with a moving platform, then unchild it
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "MovingPlatform")
+        {
+            transform.parent = null;
+            animator.SetBool("Grounded", false);
+        }
+    }
 }
