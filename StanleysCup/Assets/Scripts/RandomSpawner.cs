@@ -25,7 +25,7 @@ public class RandomSpawner : MonoBehaviour
             Spawn();
 
         if (maximumInstances > 0 && queue.Count > maximumInstances)
-            Destroy(queue.Dequeue());
+            StartCoroutine(Disappear(queue.Dequeue()));
     }
 
     void Spawn()
@@ -40,5 +40,12 @@ public class RandomSpawner : MonoBehaviour
         randomPositionOnScreen.y = Random.Range(-height / 2, height / 2);
         spawn.transform.position = randomPositionOnScreen;
         timeOfLastSpawn = Time.time;
+    }
+
+    IEnumerator Disappear(GameObject gameObject)
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Disappear");
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
 }

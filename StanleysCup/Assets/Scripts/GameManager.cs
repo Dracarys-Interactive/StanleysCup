@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour {
 
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		setupDefaults();
+
+		///
+		PlayerPrefManager.ResetPlayerState(10, true);
+		///
 	}
 
 	// game loop
@@ -120,7 +124,7 @@ public class GameManager : MonoBehaviour {
 	void refreshGUI() {
 		// set the text elements of the UI
 		UIScore.text = "Score: "+score.ToString();
-		UIHighScore.text = "Highscore: "+highscore.ToString ();
+		//UIHighScore.text = "Highscore: "+highscore.ToString ();
 		UILevel.text = _scene.name;
 		
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
@@ -143,7 +147,7 @@ public class GameManager : MonoBehaviour {
 		UIScore.text = "Score: "+score.ToString();
 
 		// if score>highscore then update the highscore UI too
-		if (score>highscore) {
+		if (UIHighScore && score > highscore) {
 			highscore = score;
 			UIHighScore.text = "Highscore: "+score.ToString();
 		}
@@ -161,9 +165,9 @@ public class GameManager : MonoBehaviour {
 
 			// load the gameOver screen
 			SceneManager.LoadScene(levelAfterGameOver);
-		} else { // tell the player to respawn
+		} /*else { // tell the player to respawn
 			_player.GetComponent<CharacterController2D>().Respawn(_spawnLocation);
-		}
+		}*/
 	}
 
 	// public function for level complete

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4969419485670326769}
   - component: {fileID: 4969419485670326774}
   - component: {fileID: 3385263191329676702}
+  - component: {fileID: 2804592702637451955}
   m_Layer: 3
   m_Name: HockeyStickPlatform
   m_TagString: MovingPlatform
@@ -151,3 +152,22 @@ PolygonCollider2D:
       - {x: 1.1424875, y: 0.9227508}
       - {x: 1.5585184, y: 0.9217039}
       - {x: 1.4960159, y: -0.21925111}
+--- !u!95 &2804592702637451955
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969419485670326770}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

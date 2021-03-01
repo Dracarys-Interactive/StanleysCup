@@ -32,6 +32,8 @@ public class OutOfBoundsDetector : MonoBehaviour
 
     void PlayerOutOfBounds(GameObject player)
     {
+        GameManager.gm.ResetGame();
+
         GameObject[] platforms = GameObject.FindGameObjectsWithTag("MovingPlatform");
         GameObject closestToOrigin = null;
         float minDistance = 0;
