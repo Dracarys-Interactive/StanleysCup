@@ -25,10 +25,13 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
 
+	public bool enableDoubleJump = false;
+
 	// private variables
 	GameObject _player;
 	Vector3 _spawnLocation;
 	Scene _scene;
+	AudioSource audio;
 
 	// set things up here
 	void Awake () {
@@ -42,7 +45,14 @@ public class GameManager : MonoBehaviour {
 		///
 		PlayerPrefManager.ResetPlayerState(10, true);
 		///
+
+		audio = GetComponent<AudioSource>();
 	}
+
+	public void PlaySound(AudioClip clip)
+    {
+		audio.PlayOneShot(clip);
+    }
 
 	// game loop
 	void Update() {

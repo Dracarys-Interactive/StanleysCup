@@ -8,17 +8,30 @@ public class CollectableResource : MonoBehaviour
     public AudioClip sfxWhenCollected;
     public ParticleSystem vfxWhenCollected;
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
+        {
             StartCoroutine(Collected());
+        }
     }
 
     IEnumerator Collected()
     {
-        if (GameManager.gm)
-            GameManager.gm.AddPoints(points);
-        yield return new WaitForSeconds(0.1f);
+        if (sfxWhenCollected)
+            GameManager.gm.PlaySound(sfxWhenCollected);
+
+        GameManager.gm.AddPoints(points);
+        
+        yield return new WaitForSeconds(.1f);
+
         Destroy(gameObject);
     }
 }

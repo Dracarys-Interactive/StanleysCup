@@ -11,7 +11,7 @@ public class PlayerMovementController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rbody;
 	private float vx;
-    private bool jumping = false;
+    private bool canDoubleJump = false;
 
     private void Awake()
     {
@@ -23,9 +23,15 @@ public class PlayerMovementController : MonoBehaviour
     {
         vx = Input.GetAxisRaw("Horizontal");
 
-        if (animator.GetBool("Grounded") && Input.GetButtonDown("Jump"))
+        bool isGrounded = animator.GetBool("Grounded");
+
+        if (isGrounded)
+            canDoubleJump = true;
+
+        if ((isGrounded || canDoubleJump) && Input.GetButtonDown("Jump"))
         {
             rbody.AddForce(new Vector2(0, jumpForce));
+            canDoubleJump = !(!isGrounded && canDoubleJump);
         }
         else
         {

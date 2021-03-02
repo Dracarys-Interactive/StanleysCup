@@ -5,6 +5,7 @@ using UnityEngine;
 public class OutOfBoundsDetector : MonoBehaviour
 {
     public Vector2 playerOffset = new Vector2(0, 0.056f);
+    public bool ignorePlayer = false;
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -23,7 +24,8 @@ public class OutOfBoundsDetector : MonoBehaviour
         switch (collision.tag)
         {
             case "Player":
-                PlayerOutOfBounds(collision.gameObject);
+                if (!ignorePlayer)
+                    PlayerOutOfBounds(collision.gameObject);
                 break;
             default:
                 break;
