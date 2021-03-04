@@ -1,0 +1,6 @@
+
+light: 6cd9ff
+med: 19afe7
+dark: 1b68a4
+black: 212121
+gray: 4d4d4d

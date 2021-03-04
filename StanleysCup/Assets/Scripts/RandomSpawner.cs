@@ -30,11 +30,11 @@ public class RandomSpawner : MonoBehaviour
 
     void Spawn()
     {
-        if (maximumInstances <= 0)
-            return;
-
         GameObject spawn = Instantiate(prefab);
-        queue.Enqueue(spawn);
+
+        if (maximumInstances > 0)
+            queue.Enqueue(spawn);
+
         Vector2 randomPositionOnScreen = new Vector2();
         randomPositionOnScreen.x = Random.Range(-width / 2, width / 2);
         randomPositionOnScreen.y = Random.Range(-height / 2, height / 2);

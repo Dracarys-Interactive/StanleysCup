@@ -491,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
   secondsBetweenSpawns: 2
-  maximumInstances: 10
+  maximumInstances: -1
   width: 20
   height: 10
 --- !u!4 &448072769

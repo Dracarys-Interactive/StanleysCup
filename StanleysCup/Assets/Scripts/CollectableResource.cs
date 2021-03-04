@@ -32,6 +32,7 @@ public class CollectableResource : MonoBehaviour
         
         yield return new WaitForSeconds(.1f);
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
