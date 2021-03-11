@@ -5,7 +5,7 @@ using UnityEngine;
 public class OutOfBoundsDetector : MonoBehaviour
 {
     public Vector2 playerOffset = new Vector2(0, 0.056f);
-    public bool ignorePlayer = false;
+    public bool ignoreUngrounded = false;
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -21,11 +21,12 @@ public class OutOfBoundsDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         switch (collision.tag)
         {
             case "Player":
-                if (!ignorePlayer)
+                Animator animator = collision.gameObject.GetComponent<Animator>();
+                bool isGrounded = animator.GetBool("Grounded");
+                if (isGrounded || !ignoreUngrounded)
                     PlayerOutOfBounds(collision.gameObject);
                 break;
             default:
