@@ -11,16 +11,15 @@ public class GameManager : MonoBehaviour {
 	// levels to move to on victory and lose
 	public string levelAfterVictory;
 	public string levelAfterGameOver;
+	public int victoryScore;
 
 	// game performance
 	public int score = 0;
-	public int highscore = 0;
 	public int startLives = 3;
 	public int lives = 3;
 
 	// UI elements to control
 	public Text UIScore;
-	public Text UIHighScore;
 	public Text UILevel;
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour {
 
 	// private variables
 	GameObject _player;
-	Vector3 _spawnLocation;
 	Scene _scene;
 	AudioSource audio;
 
@@ -41,10 +39,6 @@ public class GameManager : MonoBehaviour {
 
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		setupDefaults();
-
-		///
-		PlayerPrefManager.ResetPlayerState(10, true);
-		///
 
 		audio = GetComponent<AudioSource>();
 	}
@@ -80,9 +74,6 @@ public class GameManager : MonoBehaviour {
 		// get current scene
 		_scene = SceneManager.GetActiveScene();
 
-		// get initial _spawnLocation based on initial position of player
-		_spawnLocation = _player.transform.position;
-
 		// if levels not specified, default to current level
 		if (levelAfterVictory=="") {
 			Debug.LogWarning("levelAfterVictory not specified, defaulted to current level");
@@ -98,43 +89,20 @@ public class GameManager : MonoBehaviour {
 		if (UIScore==null)
 			Debug.LogError ("Need to set UIScore on Game Manager.");
 		
-		if (UIHighScore==null)
-			Debug.LogError ("Need to set UIHighScore on Game Manager.");
-		
 		if (UILevel==null)
 			Debug.LogError ("Need to set UILevel on Game Manager.");
 		
 		if (UIGamePaused==null)
 			Debug.LogError ("Need to set UIGamePaused on Game Manager.");
-		
-		// get stored player prefs
-		refreshPlayerState();
 
 		// get the UI ready for the game
 		refreshGUI();
-	}
-
-	// get stored Player Prefs if they exist, otherwise go with defaults set on gameObject
-	void refreshPlayerState() {
-		lives = PlayerPrefManager.GetLives();
-
-		// special case if lives <= 0 then must be testing in editor, so reset the player prefs
-		if (lives <= 0) {
-			PlayerPrefManager.ResetPlayerState(startLives,false);
-			lives = PlayerPrefManager.GetLives();
-		}
-		score = PlayerPrefManager.GetScore();
-		highscore = PlayerPrefManager.GetHighscore();
-
-		// save that this level has been accessed so the MainMenu can enable it
-		PlayerPrefManager.UnlockLevel();
 	}
 
 	// refresh all the GUI elements
 	void refreshGUI() {
 		// set the text elements of the UI
 		UIScore.text = "Score: "+score.ToString();
-		//UIHighScore.text = "Highscore: "+highscore.ToString ();
 		UILevel.text = _scene.name;
 		
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
@@ -156,11 +124,9 @@ public class GameManager : MonoBehaviour {
 		// update UI
 		UIScore.text = "Score: "+score.ToString();
 
-		// if score>highscore then update the highscore UI too
-		if (UIHighScore && score > highscore) {
-			highscore = score;
-			UIHighScore.text = "Highscore: "+score.ToString();
-		}
+		// Check for victory.
+		if (score >= victoryScore)
+			LevelComplete();
 	}
 
 	// public function to remove player life and reset game accordingly
@@ -170,21 +136,13 @@ public class GameManager : MonoBehaviour {
 		refreshGUI();
 
 		if (lives<=0) { // no more lives
-			// save the current player prefs before going to GameOver
-			PlayerPrefManager.SavePlayerState(score,highscore,lives);
-
 			// load the gameOver screen
 			SceneManager.LoadScene(levelAfterGameOver);
-		} /*else { // tell the player to respawn
-			_player.GetComponent<CharacterController2D>().Respawn(_spawnLocation);
-		}*/
+		}
 	}
 
 	// public function for level complete
-	public void LevelCompete() {
-		// save the current player prefs before moving to the next level
-		PlayerPrefManager.SavePlayerState(score,highscore,lives);
-
+	public void LevelComplete() {
 		// use a coroutine to allow the player to get fanfare before moving to next level
 		StartCoroutine(LoadNextLevel());
 	}

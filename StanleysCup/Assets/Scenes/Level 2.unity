@@ -490,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
   secondsBetweenSpawns: 2
-  maximumInstances: 10
+  maximumInstances: 15
   width: 20
   height: 10
 --- !u!4 &448072769
@@ -519,14 +519,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f778d823c7ff54084b662d923a2b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelAfterVictory: 
-  levelAfterGameOver: 
+  levelAfterVictory: Level 3
+  levelAfterGameOver: Level 2
+  victoryScore: 50
   score: 0
-  highscore: 0
-  startLives: 3
-  lives: 3
+  startLives: 6
+  lives: 6
   UIScore: {fileID: 1970521945}
-  UIHighScore: {fileID: 0}
   UILevel: {fileID: 1162345776}
   UIExtraLives:
   - {fileID: 328051160}
@@ -650,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7175104901676540267, guid: 39057741d0b6f3949912dfb248d52b30, type: 3}
   secondsBetweenSpawns: 2
-  maximumInstances: 3
+  maximumInstances: 10
   width: 20
   height: 10
 --- !u!114 &448072773
@@ -667,7 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7033919281907428984, guid: 646c6347819e2eb4888e144076f99da9, type: 3}
   secondsBetweenSpawns: 3
-  maximumInstances: 1
+  maximumInstances: 3
   width: 20
   height: 10
 --- !u!1 &519420028
