@@ -9,6 +9,7 @@ public class CollectableResource : MonoBehaviour
     public ParticleSystem vfxWhenCollected;
 
     private AudioSource audioSource;
+    private bool collected = false;
 
     private void Awake()
     {
@@ -17,8 +18,9 @@ public class CollectableResource : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !collected)
         {
+            collected = true;
             StartCoroutine(Collected());
         }
     }

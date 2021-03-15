@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour {
 	// UI elements to control
 	public Text UIScore;
 	public Text UILevel;
+	public Text UISplash;
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
+	public float splashFade = 0.005f;
 
 	public bool enableDoubleJump = false;
 
@@ -60,6 +62,13 @@ public class GameManager : MonoBehaviour {
 				UIGamePaused.SetActive(false); // remove the pause UI
 			}
 		}
+
+		if (UISplash.color.a > 0)
+        {
+			Color c = UISplash.color;
+			c.a -= splashFade;
+			UISplash.color = c;
+        }
 	}
 
 	// setup all the variables, the UI, and provide errors if things not setup properly.

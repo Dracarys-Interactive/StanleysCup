@@ -45,7 +45,7 @@ public class RandomSpawner : MonoBehaviour
     IEnumerator Disappear(GameObject gameObject)
     {
         gameObject.GetComponent<Animator>().SetTrigger("Disappear");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
         Destroy(gameObject);
     }
 }
