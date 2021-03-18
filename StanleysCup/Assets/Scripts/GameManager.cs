@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour {
 	public Text UILevel;
 	public Text UISplash;
 	public GameObject[] UIExtraLives;
-	public GameObject UIGamePaused;
 	public float splashFade = 0.005f;
 
 	public bool enableDoubleJump = false;
@@ -55,15 +54,16 @@ public class GameManager : MonoBehaviour {
 		// if ESC pressed then pause the game
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			if (Time.timeScale > 0f) {
-				UIGamePaused.SetActive(true); // this brings up the pause UI
 				Time.timeScale = 0f; // this pauses the game action
+				Color c = UISplash.color;
+				c.a = 1.0f;
+				UISplash.color = c;
 			} else {
 				Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
-				UIGamePaused.SetActive(false); // remove the pause UI
 			}
 		}
 
-		if (UISplash.color.a > 0)
+        if (Time.timeScale > 0f && UISplash.color.a > 0)
         {
 			Color c = UISplash.color;
 			c.a -= splashFade;
@@ -100,9 +100,6 @@ public class GameManager : MonoBehaviour {
 		
 		if (UILevel==null)
 			Debug.LogError ("Need to set UILevel on Game Manager.");
-		
-		if (UIGamePaused==null)
-			Debug.LogError ("Need to set UIGamePaused on Game Manager.");
 
 		// get the UI ready for the game
 		refreshGUI();
