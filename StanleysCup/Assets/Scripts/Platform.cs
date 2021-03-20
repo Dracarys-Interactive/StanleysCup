@@ -6,14 +6,18 @@ public class Platform : MonoBehaviour
 {
     public float speed = 1f;
     public bool yaxis = true;
+    public bool isFixed = false;
 
     void Awake()
     {
-        if (Random.value < .5)
-            speed *= -1;
+        if (!isFixed)
+        {
+            if (Random.value < .5)
+                speed *= -1;
 
-        if (Random.value < .5)
-            yaxis = false;
+            if (Random.value < .5)
+                yaxis = false;
+        }
     }
 
     void Update()

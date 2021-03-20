@@ -11,7 +11,7 @@ public class OutOfBoundsDetector : MonoBehaviour
     {
         switch(collision.tag)
         {
-            case "Platform":
+            case "PlatformX":
                 Destroy(collision.gameObject);
                 break;
             default:
@@ -38,7 +38,7 @@ public class OutOfBoundsDetector : MonoBehaviour
     {
         GameManager.gm.ResetGame();
 
-        GameObject[] platforms = GameObject.FindGameObjectsWithTag("MovingPlatform");
+        GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
         GameObject closestToOrigin = null;
         float minDistance = 0;
 

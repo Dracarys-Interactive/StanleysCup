@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2804592702637451955}
   m_Layer: 3
   m_Name: HockeyStickPlatform
-  m_TagString: MovingPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

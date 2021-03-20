@@ -59,7 +59,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "MovingPlatform")
+        if (other.gameObject.tag == "Platform")
         {
             transform.parent = other.transform;
             animator.SetBool("Grounded", true);
@@ -69,7 +69,7 @@ public class PlayerMovementController : MonoBehaviour
     // if the player exits a collision with a moving platform, then unchild it
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.tag == "MovingPlatform")
+        if (other.gameObject.tag == "Platform")
         {
             transform.parent = null;
             animator.SetBool("Grounded", false);
