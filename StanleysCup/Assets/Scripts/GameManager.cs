@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
 	// game loop
 	void Update() {
 		// if ESC pressed then pause the game
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (false) { // Input.GetKeyDown(KeyCode.Escape)) {
 			if (Time.timeScale > 0f) {
 				Time.timeScale = 0f; // this pauses the game action
 				Color c = UISplash.color;

@@ -184,3 +184,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   jumpForce: 600
+  bounds: {fileID: 0}

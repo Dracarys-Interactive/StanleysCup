@@ -23,7 +23,7 @@ public class OutOfBoundsDetector : MonoBehaviour
     {
         switch (collision.tag)
         {
-            case "Player":
+            case "PlayerX":
                 Animator animator = collision.gameObject.GetComponent<Animator>();
                 bool isGrounded = animator.GetBool("Grounded");
                 if (isGrounded || !ignoreUngrounded)
