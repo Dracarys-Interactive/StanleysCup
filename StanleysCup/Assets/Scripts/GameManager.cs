@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour {
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
 	GameObject _player;
 	Scene _scene;
 	AudioSource audio;
+	bool doPause = false;
 
 	// set things up here
 	void Awake () {
@@ -49,10 +51,15 @@ public class GameManager : MonoBehaviour {
 		audio.PlayOneShot(clip);
     }
 
+	public void OnPause(InputAction.CallbackContext context)
+	{
+		doPause = context.performed;
+	}
+
 	// game loop
 	void Update() {
-		// if ESC pressed then pause the game
-		if (false) { // Input.GetKeyDown(KeyCode.Escape)) {
+		// if pause key pressed then pause the game
+		if (doPause) {
 			if (Time.timeScale > 0f) {
 				Time.timeScale = 0f; // this pauses the game action
 				Color c = UISplash.color;
@@ -61,6 +68,8 @@ public class GameManager : MonoBehaviour {
 			} else {
 				Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
 			}
+
+			doPause = false;
 		}
 
         if (Time.timeScale > 0f && UISplash.color.a > 0)

@@ -131,7 +131,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        doJump = true;
+        doJump = context.performed;
     }
 
     public void OnMove(InputAction.CallbackContext context)
