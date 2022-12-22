@@ -1307,6 +1307,7 @@ GameObject:
   - component: {fileID: 448072772}
   - component: {fileID: 448072773}
   - component: {fileID: 448072774}
+  - component: {fileID: 448072775}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1580,10 +1581,23 @@ MonoBehaviour:
     m_ActionId: 33129dd4-2ef2-4050-ba87-938a0a9eddfa
     m_ActionName: Gameplay/Move[/Keyboard/w,/Keyboard/a,/Keyboard/s,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &448072775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448072767}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9157da7cc8532b4685046fbb4a227dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showDebugGUI: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,6 +2608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
@@ -3605,6 +3620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440147663242761880, guid: 4626397ac93a76c4ab1ab073be8f023a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6440147663242761881, guid: 4626397ac93a76c4ab1ab073be8f023a,
         type: 3}
