@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,9 +21,9 @@ public class GameManager : MonoBehaviour {
 	public int lives = 3;
 
 	// UI elements to control
-	public Text UIScore;
-	public Text UILevel;
-	public Text UISplash;
+	public TextMeshProUGUI UIScore;
+	public TextMeshProUGUI UILevel;
+	public TextMeshProUGUI UISplash;
 	public GameObject[] UIExtraLives;
 	public float splashFade = 0.005f;
 
