@@ -27,14 +27,11 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
-        //vx = Input.GetAxisRaw("Horizontal");
-
         bool isGrounded = animator.GetBool("Grounded");
 
         if (isGrounded && GameManager.gm.enableDoubleJump)
             canDoubleJump = true;
 
-        //if ((isGrounded || canDoubleJump) && Input.GetButtonDown("Jump"))
         if ((isGrounded || canDoubleJump) && doJump)
         {
             rbody.AddForce(new Vector2(0, jumpForce));

@@ -62,15 +62,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -13
       objectReference: {fileID: 0}
-    - target: {fileID: 4969419485670326769, guid: d7a81cf83aa72ac41b710791ac042bad,
-        type: 3}
-      propertyPath: isFixed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad,
         type: 3}
       propertyPath: m_Name
-      value: RisingHockeyStickPlatform
+      value: RisingHockeyStickPlatform Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}

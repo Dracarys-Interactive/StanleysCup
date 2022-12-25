@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  speedVariance: 0.5
   yaxis: 1
+  isFixed: 1
 --- !u!50 &4969419485670326774
 Rigidbody2D:
   serializedVersion: 4

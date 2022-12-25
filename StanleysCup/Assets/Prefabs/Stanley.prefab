@@ -185,3 +185,5 @@ MonoBehaviour:
   moveSpeed: 3
   jumpForce: 600
   bounds: {fileID: 0}
+  inBounds: 0
+  playerOffset: {x: 0, y: 0.5}
