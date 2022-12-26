@@ -1503,6 +1503,7 @@ GameObject:
   - component: {fileID: 448072768}
   - component: {fileID: 448072774}
   - component: {fileID: 448072775}
+  - component: {fileID: 448072776}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1517,14 +1518,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448072767}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 068298138f648cf46a5a4dda6457e4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 9219555512285966443, guid: 9a68581f80b8542468615cca5ccf2303, type: 3}
-  secondsBetweenSpawns: 1
-  maximumInstances: 50
+  secondsBetweenSpawns: 3
+  maximumInstances: 5
   spawningRect: {fileID: 1212874920}
 --- !u!4 &448072769
 Transform:
@@ -1552,12 +1553,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f778d823c7ff54084b662d923a2b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelAfterVictory: Level 2
+  levelAfterVictory: Level 4
   levelAfterGameOver: Level 3
-  victoryScore: 20
+  victoryScore: 30
   score: 0
-  startLives: 4
-  lives: 4
+  startLives: 2
+  lives: 2
   UIScore: {fileID: 632181884}
   UILevel: {fileID: 132623067}
   UISplash: {fileID: 574212430}
@@ -1682,7 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7175104901676540267, guid: 39057741d0b6f3949912dfb248d52b30, type: 3}
-  secondsBetweenSpawns: 0.5
+  secondsBetweenSpawns: 1
   maximumInstances: 10
   spawningRect: {fileID: 943952983}
 --- !u!114 &448072773
@@ -1692,14 +1693,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448072767}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 068298138f648cf46a5a4dda6457e4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2311579013219269432, guid: 964ebf46dbd6274498a3ba76edf0d733, type: 3}
-  secondsBetweenSpawns: 2
-  maximumInstances: 10
+  secondsBetweenSpawns: 3
+  maximumInstances: 5
   spawningRect: {fileID: 211531198}
 --- !u!114 &448072774
 MonoBehaviour:
@@ -1793,6 +1794,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showDebugGUI: 1
+--- !u!114 &448072776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448072767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068298138f648cf46a5a4dda6457e4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7033919281907428984, guid: 646c6347819e2eb4888e144076f99da9, type: 3}
+  secondsBetweenSpawns: 3
+  maximumInstances: 3
+  spawningRect: {fileID: 943952983}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,9 +2061,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'collect 20 points
+  m_text: 'collect 30 points
 
-    to move onto level 3'
+    to move onto level 4'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 44292e461703e1a4da152932db6a19d7, type: 2}
   m_sharedMaterial: {fileID: 8976840141058322633, guid: 44292e461703e1a4da152932db6a19d7,
@@ -3915,7 +3932,7 @@ PrefabInstance:
     - target: {fileID: 9157426228234141204, guid: 4626397ac93a76c4ab1ab073be8f023a,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4626397ac93a76c4ab1ab073be8f023a, type: 3}

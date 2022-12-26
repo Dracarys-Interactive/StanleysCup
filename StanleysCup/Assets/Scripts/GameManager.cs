@@ -104,12 +104,14 @@ public class GameManager : MonoBehaviour {
 			levelAfterGameOver = _scene.name;
 		}
 
+		/*
 		// friendly error messages
 		if (UIScore==null)
 			Debug.LogError ("Need to set UIScore on Game Manager.");
 		
 		if (UILevel==null)
 			Debug.LogError ("Need to set UILevel on Game Manager.");
+		*/
 
 		// get the UI ready for the game
 		refreshGUI();
@@ -117,6 +119,9 @@ public class GameManager : MonoBehaviour {
 
 	// refresh all the GUI elements
 	void refreshGUI() {
+		if (!UIScore || !UILevel)
+			return;
+
 		// set the text elements of the UI
 		UIScore.text = "Score: "+score.ToString();
 		UILevel.text = _scene.name;
