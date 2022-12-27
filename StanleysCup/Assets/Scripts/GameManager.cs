@@ -173,4 +173,12 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(3.5f);
 		SceneManager.LoadScene(levelAfterVictory);
 	}
+
+    public void TogglePause()
+    {
+		if (Time.timeScale > 0)
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
+	}
 }
