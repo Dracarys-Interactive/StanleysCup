@@ -8,18 +8,21 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 2.unity
     guid: 842a23c88e537124a8cdd15a77ca8478
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 3.unity
     guid: 73c292a9f9a6c8646965d82ce7393741
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 4.unity
     guid: c6c93a12a1afaa341aaba61d6059e769
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Win.unity
     guid: 082df878ef8e927488b01ab512eb6557
+  - enabled: 1
+    path: Assets/Scenes/Sandbox.unity
+    guid: bdfe824d94197d642b41212a611f7801
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8b219bcd41ba72048ba678be484edb2e,
       type: 2}

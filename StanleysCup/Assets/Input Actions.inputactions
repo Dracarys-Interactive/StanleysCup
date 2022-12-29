@@ -182,7 +182,7 @@
                     "id": "fd6e948f-a9ac-45b0-9105-f184e955a0dc",
                     "path": "<Touchscreen>/primaryTouch/delta",
                     "interactions": "",
-                    "processors": "Normalize(min=-1,max=1)",
+                    "processors": "NormalizeVector2",
                     "groups": "Touchscreen",
                     "action": "Move",
                     "isComposite": false,
