@@ -287,17 +287,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4c5d321e-d2a6-4006-92fd-177aacde8440",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d4c176d3-4e0b-4442-a33d-c514bfce6356",
                     "path": "<Touchscreen>/touch*/Press",
                     "interactions": "MultiTap",
@@ -325,6 +314,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92b7a690-a0c1-4e57-8532-4fa9e5f60d5e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false

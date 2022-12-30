@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	public TextMeshProUGUI UISplash;
 	public GameObject[] UIExtraLives;
 	public float splashFade = 0.005f;
+	public GameObject miniMap;
 
 	public bool enableDoubleJump = false;
 
@@ -180,5 +181,10 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 0;
 		else
 			Time.timeScale = 1;
+	}
+
+	public void ToggleMiniMap()
+	{
+		miniMap.SetActive(!miniMap.activeSelf);
 	}
 }
