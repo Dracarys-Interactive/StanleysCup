@@ -93,7 +93,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 3
-        value: 0.39215687
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -112,7 +112,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Color.a
+    attribute: m_Intensity
     path: Spot Light
     classID: 108
     script: {fileID: 0}
@@ -140,7 +140,7 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 1001607455
-      attribute: 304273561
+      attribute: 898800009
       script: {fileID: 0}
       typeID: 108
       customType: 25
@@ -302,7 +302,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 3
-        value: 0.39215687
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -321,7 +321,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Color.a
+    attribute: m_Intensity
     path: Spot Light
     classID: 108
     script: {fileID: 0}
