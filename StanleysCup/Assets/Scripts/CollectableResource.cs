@@ -31,10 +31,14 @@ public class CollectableResource : MonoBehaviour
             GameManager.gm.PlaySound(sfxWhenCollected);
 
         GameManager.gm.AddPoints(points);
-        
+
         yield return new WaitForSeconds(.1f);
 
-        // Destroy(gameObject);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    void Disappear()
+    {
+        Destroy(gameObject);
     }
 }

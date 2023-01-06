@@ -14,7 +14,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody2D rbody;
-	private float vx;
+    private float vx;
     private bool canDoubleJump = false;
     private bool doJump = false;
 
@@ -29,13 +29,15 @@ public class PlayerMovementController : MonoBehaviour
     {
         bool isGrounded = animator.GetBool("Grounded");
 
-        if (isGrounded && GameManager.gm.enableDoubleJump)
+        if (GameManager.gm.enableDoubleJump && isGrounded)
             canDoubleJump = true;
+        else if (rbody.velocity.y < 0) // Can't jump if falling
+            canDoubleJump = false;
 
         if ((isGrounded || canDoubleJump) && doJump)
         {
             rbody.AddForce(new Vector2(0, jumpForce));
-            canDoubleJump = GameManager.gm.enableDoubleJump && !(!isGrounded && canDoubleJump);
+            canDoubleJump = GameManager.gm.enableDoubleJump && isGrounded;
         }
         else
         {
@@ -56,19 +58,19 @@ public class PlayerMovementController : MonoBehaviour
         doJump = false;
     }
 
-	void LateUpdate()
-	{
+    void LateUpdate()
+    {
         if (vx == 0)
             return;
 
         Vector3 localScale = transform.localScale;
-		bool facingRight = vx > 0;
+        bool facingRight = vx > 0;
 
-		if (facingRight && localScale.x < 0 || !facingRight && localScale.x > 0)
-			localScale.x *= -1;
+        if (facingRight && localScale.x < 0 || !facingRight && localScale.x > 0)
+            localScale.x *= -1;
 
-		transform.localScale = localScale;
-	}
+        transform.localScale = localScale;
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
