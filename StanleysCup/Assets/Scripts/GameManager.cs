@@ -198,9 +198,15 @@ public class GameManager : MonoBehaviour
     public void TogglePause()
     {
         if (Time.timeScale > 0)
+        {
             Time.timeScale = 0;
+            audioSource.Pause();
+        }
         else
+        {
             Time.timeScale = 1;
+            audioSource.UnPause();
+        }
     }
 
     public void ToggleMiniMap()

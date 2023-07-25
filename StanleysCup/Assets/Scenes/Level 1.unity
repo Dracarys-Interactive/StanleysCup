@@ -2070,6 +2070,11 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 371108767}
+    - target: {fileID: 4229348765724905146, guid: 3b8732ec2e17ba645a6849636035bf56,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4229348765844380967, guid: 3b8732ec2e17ba645a6849636035bf56,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4009,11 +4014,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4561422186183627983, guid: ca42321770b8c8e4881ecc79188604fe,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.86346024
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561422186183627983, guid: ca42321770b8c8e4881ecc79188604fe,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.036896437
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561422186183627983, guid: ca42321770b8c8e4881ecc79188604fe,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4561422186183627987, guid: ca42321770b8c8e4881ecc79188604fe,
         type: 3}
       propertyPath: bounds
       value: 
       objectReference: {fileID: 6440147663060526625}
+    - target: {fileID: 4561422186183627987, guid: ca42321770b8c8e4881ecc79188604fe,
+        type: 3}
+      propertyPath: ignoreCollisionsWhenMoving
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca42321770b8c8e4881ecc79188604fe, type: 3}
 --- !u!1001 &4969419485157459634
@@ -4160,6 +4185,11 @@ PrefabInstance:
     - target: {fileID: 6440147663242761881, guid: 4626397ac93a76c4ab1ab073be8f023a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440147663371605433, guid: 4626397ac93a76c4ab1ab073be8f023a,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6440147663371605433, guid: 4626397ac93a76c4ab1ab073be8f023a,
