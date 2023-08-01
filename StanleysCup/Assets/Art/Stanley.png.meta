@@ -105,7 +105,7 @@ TextureImporter:
       213: 3549641592158665209
     second: Stanley_33
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -126,6 +126,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -135,8 +136,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -164,6 +165,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -191,6 +193,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -928,6 +954,41 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Stanley_0: -7322826574844614155
+      Stanley_1: 7238619770379594755
+      Stanley_10: 2481844769552453576
+      Stanley_11: -8480545461575756493
+      Stanley_12: 4873651292858629348
+      Stanley_13: 863757063311182942
+      Stanley_14: -6684098313181250289
+      Stanley_15: 883755254533617570
+      Stanley_16: 3149304238977499798
+      Stanley_17: 7463054805038109241
+      Stanley_18: -3794938445064645435
+      Stanley_19: 5731790561757708973
+      Stanley_2: 1278779531141738481
+      Stanley_20: 462183835946991589
+      Stanley_21: -7586261821263837576
+      Stanley_22: -7271890064388196287
+      Stanley_23: 4942400085771478696
+      Stanley_24: 3151751638714350589
+      Stanley_25: 4299080383884815140
+      Stanley_3: 4582865313876471168
+      Stanley_30: -7866590171067771144
+      Stanley_31: 7384474644349765933
+      Stanley_33: 3549641592158665209
+      Stanley_4: 3603412824406471862
+      Stanley_9: 3856785459564913875
+      Stanley_Back: -8461175110325632446
+      Stanley_Fly: 383361165197505673
+      Stanley_Front: -8488996034437421952
+      Stanley_Left: -4617121665790121748
+      Stanley_Right: 7319046493044458150
+      Stanley_Walk_0: -7959456833036868916
+      Stanley_Walk_1: 6790799632640557796
+      Stanley_Walk_2: 8408430815738034614
+      Stanley_Walk_3: 6459764769535130953
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
