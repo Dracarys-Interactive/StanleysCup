@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Frozen Beginnings
   collectables:
-  - {fileID: 11400000, guid: abe750ed873fc54428c52dcad0f694a1, type: 2}
+  - {fileID: 11400000, guid: b5e5aa50e2943d64c8bac5108beb4379, type: 2}
+  platforms:
+  - {fileID: 11400000, guid: ceaf75c1baa7c7a418edb3e7eddbbfc6, type: 2}
   pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0

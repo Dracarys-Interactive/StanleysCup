@@ -5,8 +5,10 @@ using UnityEngine;
 namespace DracarysInteractive.StanleysCup
 {
     [CreateAssetMenu]
-    public class CollectableSO : SpawnableSO
+    public class RectangleSO : ScriptableObject
     {
-        public int points;
+        public Vector2 position;
+        public float width;
+        public float height;
     }
 }

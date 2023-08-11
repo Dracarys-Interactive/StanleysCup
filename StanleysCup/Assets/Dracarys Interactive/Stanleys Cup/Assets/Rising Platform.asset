@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae60780165d89194b806813364fbc547, type: 3}
+  m_Name: Rising Platform
+  m_EditorClassIdentifier: 
+  spawnableName: Rising Platform
+  prefab: {fileID: 9219555512285966443, guid: 9a68581f80b8542468615cca5ccf2303, type: 3}
+  maximumInstances: 50
+  secondsBetweenSpawns: 1
+  lifetimeInSeconds: 0
+  spawningRect: {fileID: 11400000, guid: 284194d34b764b240bf1cb6b16e82697, type: 2}
+  movement: 0
+  waypoints: []

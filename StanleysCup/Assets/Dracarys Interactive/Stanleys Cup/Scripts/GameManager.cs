@@ -4,6 +4,7 @@ using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections.Generic;
 
 namespace DracarysInteractive.StanleysCup
 {
@@ -18,6 +19,13 @@ namespace DracarysInteractive.StanleysCup
         // current level
         public int currentLevel = 0;
         public TextMeshProUGUI levelName;
+
+        // collectables
+        public RectTransform collectableSpawnRect;
+        public List<CollectableResource> activeCollectables;
+
+        // platforms
+
 
         // levels to move to on victory and lose
         public string levelAfterVictory;
@@ -145,7 +153,31 @@ namespace DracarysInteractive.StanleysCup
         void StartLevel(int level)
         {
             LevelSO levelData = levels[level];
-            levelName.text = levelData.name;
+            levelName.text = levelData.name.Replace(' ', '\n');
+
+            foreach(CollectableSO collectable in levelData.collectables)
+            {
+                GameObject go = new GameObject(collectable.spawnableName + " Spawner");
+                go.transform.SetParent(transform);
+
+                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                randomSpawner.prefab = collectable.prefab;
+                randomSpawner.maximumInstances = collectable.maximumInstances;
+                randomSpawner.secondsBetweenSpawns = collectable.secondsBetweenSpawns;
+                randomSpawner.spawningRectSO = collectable.spawningRect;
+            }
+
+            foreach (PlatformSO platform in levelData.platforms)
+            {
+                GameObject go = new GameObject(platform.spawnableName + " Spawner");
+                go.transform.SetParent(transform);
+
+                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                randomSpawner.prefab = platform.prefab;
+                randomSpawner.maximumInstances = platform.maximumInstances;
+                randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
+                randomSpawner.spawningRectSO = platform.spawningRect;
+            }
         }
 
         // refresh all the GUI elements
