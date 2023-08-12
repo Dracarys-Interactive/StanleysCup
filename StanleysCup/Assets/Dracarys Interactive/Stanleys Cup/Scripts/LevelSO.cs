@@ -13,5 +13,7 @@ namespace DracarysInteractive.StanleysCup
         public int pointsToAdvance;
         public bool hasMiniMap;
         public bool useSpotLight;
+        public int lives;
+        public LevelSO nextLevel;
     }
 }

@@ -2942,7 +2942,7 @@ MonoBehaviour:
   secondsBetweenSpawns: 1
   maximumInstances: 50
   spawningRect: {fileID: 1212874920}
-  spawningRectSO: {fileID: 0}
+  spawnableSO: {fileID: 0}
 --- !u!114 &1369150078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369150073}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 068298138f648cf46a5a4dda6457e4ce, type: 3}
   m_Name: 
@@ -2959,7 +2959,7 @@ MonoBehaviour:
   secondsBetweenSpawns: 2
   maximumInstances: 10
   spawningRect: {fileID: 211531198}
-  spawningRectSO: {fileID: 0}
+  spawnableSO: {fileID: 0}
 --- !u!114 &1369150079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2976,7 +2976,7 @@ MonoBehaviour:
   secondsBetweenSpawns: 1
   maximumInstances: 5
   spawningRect: {fileID: 943952983}
-  spawningRectSO: {fileID: 0}
+  spawnableSO: {fileID: 0}
 --- !u!82 &1369150080
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3085,14 +3085,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f778d823c7ff54084b662d923a2b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
-  currentLevel: 0
+  currentLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
   levelName: {fileID: 132623067}
   collectableSpawnRect: {fileID: 943952983}
   activeCollectables: []
-  levelAfterVictory: Level 2
-  levelAfterGameOver: Level 1
+  levelAfterVictory: 
+  levelAfterGameOver: Dracarys Splash
   victoryScore: 10
   score: 0
   startLives: 6

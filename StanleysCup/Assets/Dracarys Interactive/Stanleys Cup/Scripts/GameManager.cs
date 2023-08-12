@@ -13,29 +13,16 @@ namespace DracarysInteractive.StanleysCup
         // static reference to game manager so can be called from other scripts directly (not just through gameobject component)
         public static GameManager gm;
 
-        // level definitions
-        public LevelSO[] levels;
-
-        // current level
-        public int currentLevel = 0;
+        public LevelSO currentLevel;
         public TextMeshProUGUI levelName;
 
         // collectables
         public RectTransform collectableSpawnRect;
         public List<CollectableResource> activeCollectables;
 
-        // platforms
-
-
-        // levels to move to on victory and lose
-        public string levelAfterVictory;
-        public string levelAfterGameOver;
-        public int victoryScore;
-
         // game performance
         public int score = 0;
-        public int startLives = 3;
-        public int lives = 3;
+        public int lives = 0;
 
         // UI elements to control
         public TextMeshProUGUI UIScore;
@@ -56,14 +43,19 @@ namespace DracarysInteractive.StanleysCup
         // set things up here
         void Awake()
         {
-            // setup reference to game manager
+            // TODO: use Singleton
             if (gm == null)
                 gm = this.GetComponent<GameManager>();
 
-            // setup all the variables, the UI, and provide errors if things not setup properly.
-            setupDefaults();
+            if (_player == null)
+                _player = GameObject.FindGameObjectWithTag("Player");
+
+            if (_player == null)
+                Debug.LogError("Player not found in Game Manager");
 
             audioSource = GetComponent<AudioSource>();
+
+            refreshGUI();
         }
 
         public void PlaySound(AudioClip clip)
@@ -105,54 +97,26 @@ namespace DracarysInteractive.StanleysCup
             }
         }
 
-        // setup all the variables, the UI, and provide errors if things not setup properly.
-        void setupDefaults()
-        {
-            // setup reference to player
-            if (_player == null)
-                _player = GameObject.FindGameObjectWithTag("Player");
-
-
-            if (_player == null)
-                Debug.LogError("Player not found in Game Manager");
-
-            // get current scene
-            _scene = SceneManager.GetActiveScene();
-
-            // if levels not specified, default to current level
-            if (levelAfterVictory == "")
-            {
-                Debug.LogWarning("levelAfterVictory not specified, defaulted to current level");
-                levelAfterVictory = _scene.name;
-            }
-
-            if (levelAfterGameOver == "")
-            {
-                Debug.LogWarning("levelAfterGameOver not specified, defaulted to current level");
-                levelAfterGameOver = _scene.name;
-            }
-
-            /*
-            // friendly error messages
-            if (UIScore==null)
-                Debug.LogError ("Need to set UIScore on Game Manager.");
-
-            if (UILevel==null)
-                Debug.LogError ("Need to set UILevel on Game Manager.");
-            */
-
-            // get the UI ready for the game
-            refreshGUI();
-        }
-
         private void Start()
         {
-            StartLevel(0);
+            StartLevel(currentLevel);
         }
 
-        void StartLevel(int level)
+        void StartLevel(LevelSO levelData)
         {
-            LevelSO levelData = levels[level];
+            if (!levelData)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+
+            lives = levelData.lives;
+            score = 0;
+
+            foreach (Transform child in transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
             levelName.text = levelData.name.Replace(' ', '\n');
 
             foreach(CollectableSO collectable in levelData.collectables)
@@ -164,7 +128,7 @@ namespace DracarysInteractive.StanleysCup
                 randomSpawner.prefab = collectable.prefab;
                 randomSpawner.maximumInstances = collectable.maximumInstances;
                 randomSpawner.secondsBetweenSpawns = collectable.secondsBetweenSpawns;
-                randomSpawner.spawningRectSO = collectable.spawningRect;
+                randomSpawner.spawnableSO = collectable;
             }
 
             foreach (PlatformSO platform in levelData.platforms)
@@ -176,7 +140,7 @@ namespace DracarysInteractive.StanleysCup
                 randomSpawner.prefab = platform.prefab;
                 randomSpawner.maximumInstances = platform.maximumInstances;
                 randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
-                randomSpawner.spawningRectSO = platform.spawningRect;
+                randomSpawner.spawnableSO = platform;
             }
         }
 
@@ -188,7 +152,6 @@ namespace DracarysInteractive.StanleysCup
 
             // set the text elements of the UI
             UIScore.text = "Score: " + score.ToString();
-            UILevel.text = _scene.name;
 
             // turn on the appropriate number of life indicators in the UI based on the number of lives left
             for (int i = 0; i < UIExtraLives.Length; i++)
@@ -214,36 +177,26 @@ namespace DracarysInteractive.StanleysCup
             UIScore.text = "Score: " + score.ToString();
 
             // Check for victory.
-            if (score >= victoryScore)
+            if (score >= currentLevel.pointsToAdvance)
                 LevelComplete();
         }
 
         // public function to remove player life and reset game accordingly
         public void ResetGame()
         {
-            // remove life and update GUI
             lives--;
             refreshGUI();
 
             if (lives <= 0)
-            { // no more lives
-              // load the gameOver screen
-                SceneManager.LoadScene(levelAfterGameOver);
+            {
+                StartLevel(currentLevel);
             }
         }
 
         // public function for level complete
         public void LevelComplete()
         {
-            // use a coroutine to allow the player to get fanfare before moving to next level
-            StartCoroutine(LoadNextLevel());
-        }
-
-        // load the nextLevel after delay
-        IEnumerator LoadNextLevel()
-        {
-            yield return new WaitForSeconds(3.5f);
-            SceneManager.LoadScene(levelAfterVictory);
+            StartLevel(currentLevel = currentLevel.nextLevel);
         }
 
         public void TogglePause()

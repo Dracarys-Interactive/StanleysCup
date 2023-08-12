@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Rising Platform
   m_EditorClassIdentifier: 
   spawnableName: Rising Platform
-  prefab: {fileID: 9219555512285966443, guid: 9a68581f80b8542468615cca5ccf2303, type: 3}
+  prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
   maximumInstances: 50
   secondsBetweenSpawns: 1
   lifetimeInSeconds: 0
-  spawningRect: {fileID: 11400000, guid: 284194d34b764b240bf1cb6b16e82697, type: 2}
+  spawningRect: {fileID: 11400000, guid: ff0e7b8f747509e4cabc1a567fdc5f3c, type: 2}
   movement: 0
   waypoints: []

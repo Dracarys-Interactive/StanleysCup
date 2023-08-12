@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+namespace DracarysInteractive.StanleysCup
 {
-    public float speed = 1f;
-    public float speedVariance = .2f;
-    public bool yaxis = true;
-    public bool isFixed = false;
-
-    void Awake()
+    public class Platform : MonoBehaviour
     {
-        speed += speedVariance < 0 ? Random.Range(speedVariance, 0) : Random.Range(0, speedVariance);
+        public float speed = 1f;
+        public float speedVariance = .2f;
+        public bool yaxis = true;
+        public bool isFixed = false;
 
-        if (!isFixed)
+        void Awake()
         {
-            if (Random.value < .5)
-                speed *= -1;
+            speed += speedVariance < 0 ? Random.Range(speedVariance, 0) : Random.Range(0, speedVariance);
 
-            if (Random.value < .5)
-                yaxis = false;
+            if (!isFixed)
+            {
+                if (Random.value < .5)
+                    speed *= -1;
+
+                if (Random.value < .5)
+                    yaxis = false;
+            }
         }
-    }
 
-    void Update()
-    {
-        Vector2 position = transform.position;
+        void Update()
+        {
+            Vector2 position = transform.position;
 
-        if(yaxis) 
-            position.y += speed * Time.deltaTime;
-        else
-            position.x += speed * Time.deltaTime;
+            if (yaxis)
+                position.y += speed * Time.deltaTime;
+            else
+                position.x += speed * Time.deltaTime;
 
-        transform.position = position;
+            transform.position = position;
+        }
     }
 }

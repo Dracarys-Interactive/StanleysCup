@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de1306ad465dba4ea7db5cf08a1a836, type: 3}
-  m_Name: Frozen Beginnings
+  m_Name: Puck Perch
   m_EditorClassIdentifier: 
-  levelName: Frozen Beginnings
+  levelName: Puck Perch
   collectables:
-  - {fileID: 11400000, guid: b5e5aa50e2943d64c8bac5108beb4379, type: 2}
+  - {fileID: 11400000, guid: 101ef386b3609d34ebae986875907c71, type: 2}
   platforms:
-  - {fileID: 11400000, guid: ceaf75c1baa7c7a418edb3e7eddbbfc6, type: 2}
+  - {fileID: 11400000, guid: ee83f45613f75c24e99a057ffca4c0a7, type: 2}
+  - {fileID: 11400000, guid: 2d363e6723423864a8e07173cd4955c5, type: 2}
   pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
+  lives: 4
+  nextLevel: {fileID: 0}

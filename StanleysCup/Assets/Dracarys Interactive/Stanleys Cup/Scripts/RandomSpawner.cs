@@ -9,7 +9,7 @@ namespace DracarysInteractive.StanleysCup {
         public float secondsBetweenSpawns = 0.5f;
         public int maximumInstances = -1;
         public RectTransform spawningRect;
-        public RectangleSO spawningRectSO;
+        public SpawnableSO spawnableSO;
 
         private float timeOfLastSpawn = 0f;
         private Queue<GameObject> queue = new Queue<GameObject>();
@@ -35,12 +35,25 @@ namespace DracarysInteractive.StanleysCup {
             if (maximumInstances > 0)
                 queue.Enqueue(spawn);
 
-            if (spawningRectSO)
+            if (spawnableSO)
             {
                 spawn.transform.position = new Vector3(
-                    Random.Range(spawningRectSO.position.x - spawningRectSO.width / 2, spawningRectSO.position.x + spawningRectSO.width / 2),
-                    Random.Range(spawningRectSO.position.y - spawningRectSO.height / 2, spawningRectSO.position.y + spawningRectSO.height / 2),
+                    Random.Range(spawnableSO.spawningRect.position.x - spawnableSO.spawningRect.width / 2, spawnableSO.spawningRect.position.x + spawnableSO.spawningRect.width / 2),
+                    Random.Range(spawnableSO.spawningRect.position.y - spawnableSO.spawningRect.height / 2, spawnableSO.spawningRect.position.y + spawnableSO.spawningRect.height / 2),
                     0);
+
+                Platform platform = spawn.GetComponent<Platform>();
+
+                if (platform)
+                {
+                    PlatformSO platformSO = (PlatformSO)spawnableSO;
+
+                    if (platformSO.movement == PlatformSO.Movement.down)
+                    {
+                        platform.speed *= -1;
+                        platform.speedVariance *= -1;
+                    }
+                }
             }
             else
             {
