@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de1306ad465dba4ea7db5cf08a1a836, type: 3}
   m_Name: Puck Perch
   m_EditorClassIdentifier: 
-  levelName: Puck Perch
+  levelName: 'Puck
+
+    Perch'
   collectables:
   - {fileID: 11400000, guid: 101ef386b3609d34ebae986875907c71, type: 2}
   platforms:
@@ -22,4 +24,5 @@ MonoBehaviour:
   hasMiniMap: 1
   useSpotLight: 0
   lives: 4
-  nextLevel: {fileID: 0}
+  nextLevel: {fileID: 11400000, guid: 38cd9e7d90f610c479bb887b941efe04, type: 2}
+  canDoubleJump: 0

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DracarysInteractive.StanleysCup {
+namespace DracarysInteractive.StanleysCup
+{
     public class RandomSpawner : MonoBehaviour
     {
         public GameObject prefab;
@@ -48,11 +49,13 @@ namespace DracarysInteractive.StanleysCup {
                 {
                     PlatformSO platformSO = (PlatformSO)spawnableSO;
 
-                    if (platformSO.movement == PlatformSO.Movement.down)
+                    if (platformSO.movement == PlatformSO.Movement.down || platformSO.movement == PlatformSO.Movement.left)
                     {
                         platform.speed *= -1;
                         platform.speedVariance *= -1;
                     }
+
+                    platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
                 }
             }
             else

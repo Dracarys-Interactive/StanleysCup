@@ -13,12 +13,10 @@ namespace DracarysInteractive.StanleysCup
         // static reference to game manager so can be called from other scripts directly (not just through gameobject component)
         public static GameManager gm;
 
+        public GameObject playerPrefab;
+
         public LevelSO currentLevel;
         public TextMeshProUGUI levelName;
-
-        // collectables
-        public RectTransform collectableSpawnRect;
-        public List<CollectableResource> activeCollectables;
 
         // game performance
         public int score = 0;
@@ -46,12 +44,14 @@ namespace DracarysInteractive.StanleysCup
             // TODO: use Singleton
             if (gm == null)
                 gm = this.GetComponent<GameManager>();
-
+            /*
             if (_player == null)
                 _player = GameObject.FindGameObjectWithTag("Player");
 
             if (_player == null)
                 Debug.LogError("Player not found in Game Manager");
+
+            */
 
             audioSource = GetComponent<AudioSource>();
 
@@ -71,6 +71,38 @@ namespace DracarysInteractive.StanleysCup
         // game loop
         void Update()
         {
+            if (_player == null)
+            {
+                GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
+
+                if (platforms.Length > currentLevel.platforms.Length / 2)
+                {
+                    _player = Instantiate(playerPrefab);
+
+                    GameObject closestToOrigin = null;
+                    float minDistance = 0;
+
+                    foreach (GameObject platform in platforms)
+                    {
+                        float distance = Vector2.Distance(Vector2.zero, platform.gameObject.transform.position);
+
+                        if (closestToOrigin == null || distance < minDistance)
+                        {
+                            closestToOrigin = platform;
+                            minDistance = distance;
+                        }
+                    }
+
+                    if (closestToOrigin)
+                    {
+                        Vector2 playerOffset = new Vector2(0, 0.056f);
+                        _player.transform.parent = closestToOrigin.transform;
+                        _player.transform.localPosition = playerOffset;
+                        _player.GetComponent<Animator>().SetBool("Grounded", true);
+                    }
+                }
+            }
+            
             // if pause key pressed then pause the game
             if (doPause)
             {
@@ -111,13 +143,19 @@ namespace DracarysInteractive.StanleysCup
 
             lives = levelData.lives;
             score = 0;
+            enableDoubleJump = levelData.canDoubleJump;
+
+            if (_player)
+            {
+                Destroy(_player.gameObject);
+            }
 
             foreach (Transform child in transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
 
-            levelName.text = levelData.name.Replace(' ', '\n');
+            levelName.text = levelData.levelName;
 
             foreach(CollectableSO collectable in levelData.collectables)
             {
@@ -142,6 +180,12 @@ namespace DracarysInteractive.StanleysCup
                 randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
                 randomSpawner.spawnableSO = platform;
             }
+
+            ParticleSystem snow = FindObjectOfType<ParticleSystem>();
+            var emission = snow.emission;
+            emission.rateOverTime = 20;
+
+            refreshGUI();
         }
 
         // refresh all the GUI elements

@@ -7,6 +7,7 @@ namespace DracarysInteractive.StanleysCup
     [CreateAssetMenu]
     public class LevelSO : ScriptableObject
     {
+        [TextArea(2, 100)]
         public string levelName;
         public CollectableSO[] collectables;
         public PlatformSO[] platforms;
@@ -15,5 +16,6 @@ namespace DracarysInteractive.StanleysCup
         public bool useSpotLight;
         public int lives;
         public LevelSO nextLevel;
+        public bool canDoubleJump;
     }
 }

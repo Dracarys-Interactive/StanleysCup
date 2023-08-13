@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de1306ad465dba4ea7db5cf08a1a836, type: 3}
-  m_Name: Frozen Beginnings
+  m_Name: Dump Chase 2
   m_EditorClassIdentifier: 
-  levelName: 'Frozen
+  levelName: 'Dump ''n
 
-    Beginnings'
+    Chase II'
   collectables:
-  - {fileID: 11400000, guid: 8c7447f8231278643adcbc7857c08c55, type: 2}
+  - {fileID: 11400000, guid: 552361bf1abd64f4ea2f7f8bb676bcf6, type: 2}
   platforms:
-  - {fileID: 11400000, guid: a2e60f904761e994ab904b806d9c14a5, type: 2}
-  - {fileID: 11400000, guid: 85cd6fbc3e0af824985e11024154e6fd, type: 2}
-  pointsToAdvance: 2
+  - {fileID: 11400000, guid: 689ffa5901aab6d4daab1d4d6dfb6b6f, type: 2}
+  pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
-  lives: 2
-  nextLevel: {fileID: 11400000, guid: a2901453ed10692459e54ba144407e0e, type: 2}
+  lives: 4
+  nextLevel: {fileID: 0}
   canDoubleJump: 0
