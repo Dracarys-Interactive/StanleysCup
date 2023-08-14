@@ -30,9 +30,9 @@ namespace DracarysInteractive.StanleysCup
         IEnumerator Collected()
         {
             if (sfxWhenCollected)
-                GameManager.gm.PlaySound(sfxWhenCollected);
+                GameManager.Instance.PlaySound(sfxWhenCollected);
 
-            GameManager.gm.AddPoints(points);
+            GameManager.Instance.AddPoints(points);
 
             yield return new WaitForSeconds(.1f);
 

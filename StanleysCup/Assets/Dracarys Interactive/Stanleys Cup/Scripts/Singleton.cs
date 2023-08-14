@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DracarysInteractive.AIStudio
+namespace DracarysInteractive.StanleysCup
 {
     /// <summary>
     /// Implementation of Singleton for <see cref="MonoBehaviour"/> that insures only a single instance

@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections.Generic;
+using Cinemachine;
 
 namespace DracarysInteractive.StanleysCup
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
-        // static reference to game manager so can be called from other scripts directly (not just through gameobject component)
-        public static GameManager gm;
-
         public GameObject playerPrefab;
+        public int minPlatformsToSpawnPlayer = 2;
+        public CinemachineVirtualCamera followCam;
 
         public LevelSO currentLevel;
         public TextMeshProUGUI levelName;
@@ -39,22 +39,10 @@ namespace DracarysInteractive.StanleysCup
         bool doPause = false;
 
         // set things up here
-        void Awake()
+        protected override void Awake()
         {
-            // TODO: use Singleton
-            if (gm == null)
-                gm = this.GetComponent<GameManager>();
-            /*
-            if (_player == null)
-                _player = GameObject.FindGameObjectWithTag("Player");
-
-            if (_player == null)
-                Debug.LogError("Player not found in Game Manager");
-
-            */
-
+            base.Awake();
             audioSource = GetComponent<AudioSource>();
-
             refreshGUI();
         }
 
@@ -73,9 +61,10 @@ namespace DracarysInteractive.StanleysCup
         {
             if (_player == null)
             {
+
                 GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
 
-                if (platforms.Length > currentLevel.platforms.Length / 2)
+                if (platforms.Length >= minPlatformsToSpawnPlayer)
                 {
                     _player = Instantiate(playerPrefab);
 
@@ -95,10 +84,11 @@ namespace DracarysInteractive.StanleysCup
 
                     if (closestToOrigin)
                     {
-                        Vector2 playerOffset = new Vector2(0, 0.056f);
+                        Vector2 playerOffset = new Vector2(0, 1f); // new Vector2(0, 0.056f);
                         _player.transform.parent = closestToOrigin.transform;
                         _player.transform.localPosition = playerOffset;
                         _player.GetComponent<Animator>().SetBool("Grounded", true);
+                        followCam.Follow = _player.transform;
                     }
                 }
             }

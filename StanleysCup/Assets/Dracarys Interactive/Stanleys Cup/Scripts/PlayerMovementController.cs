@@ -31,7 +31,7 @@ namespace DracarysInteractive.StanleysCup
         {
             bool isGrounded = animator.GetBool("Grounded");
 
-            if (GameManager.gm.enableDoubleJump && isGrounded)
+            if (GameManager.Instance.enableDoubleJump && isGrounded)
                 canDoubleJump = true;
             else if (rbody.velocity.y < 0) // Can't jump if falling
                 canDoubleJump = false;
@@ -39,7 +39,7 @@ namespace DracarysInteractive.StanleysCup
             if ((isGrounded || canDoubleJump) && doJump)
             {
                 rbody.AddForce(new Vector2(0, jumpForce));
-                canDoubleJump = GameManager.gm.enableDoubleJump && isGrounded;
+                canDoubleJump = GameManager.Instance.enableDoubleJump && isGrounded;
             }
             else
             {
@@ -105,7 +105,7 @@ namespace DracarysInteractive.StanleysCup
 
         void PlayerOutOfBounds(GameObject player)
         {
-            GameManager.gm.ResetGame();
+            GameManager.Instance.ResetGame();
 
             GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
             GameObject closestToOrigin = null;

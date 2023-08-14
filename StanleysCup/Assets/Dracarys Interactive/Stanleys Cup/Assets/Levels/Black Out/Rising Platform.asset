@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae60780165d89194b806813364fbc547, type: 3}
-  m_Name: Falling Platform
+  m_Name: Rising Platform
   m_EditorClassIdentifier: 
-  spawnableName: Falling Platform
+  spawnableName: Rising Platform
   prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
-  maximumInstances: 1
-  secondsBetweenSpawns: 10
+  maximumInstances: 50
+  secondsBetweenSpawns: 2
   lifetimeInSeconds: 0
-  spawningRect: {fileID: 11400000, guid: bcb36f30063bdf84c90814ac7be95d44, type: 2}
-  movement: 1
+  spawningRect: {fileID: 11400000, guid: af6d42ebb0f54f244b763c237f42ef2a, type: 2}
+  movement: 0
   waypoints: []

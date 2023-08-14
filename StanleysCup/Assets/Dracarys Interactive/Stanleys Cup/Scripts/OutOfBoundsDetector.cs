@@ -38,7 +38,7 @@ namespace DracarysInteractive.StanleysCup
 
         void PlayerOutOfBounds(GameObject player)
         {
-            GameManager.gm.ResetGame();
+            GameManager.Instance.ResetGame();
 
             GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
             GameObject closestToOrigin = null;

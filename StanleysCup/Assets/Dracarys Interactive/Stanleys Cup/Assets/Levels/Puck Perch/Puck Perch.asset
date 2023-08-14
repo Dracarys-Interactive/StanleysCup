@@ -18,11 +18,10 @@ MonoBehaviour:
   collectables:
   - {fileID: 11400000, guid: 101ef386b3609d34ebae986875907c71, type: 2}
   platforms:
-  - {fileID: 11400000, guid: ee83f45613f75c24e99a057ffca4c0a7, type: 2}
   - {fileID: 11400000, guid: 2d363e6723423864a8e07173cd4955c5, type: 2}
   pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
-  lives: 4
+  lives: 5
   nextLevel: {fileID: 11400000, guid: 38cd9e7d90f610c479bb887b941efe04, type: 2}
   canDoubleJump: 0
