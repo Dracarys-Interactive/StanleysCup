@@ -11,6 +11,9 @@ namespace DracarysInteractive.StanleysCup
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (collision.gameObject.GetComponent<Moveable>())
+                Destroy(collision.gameObject);
+
             switch (collision.tag)
             {
                 case "PlatformX":
@@ -23,6 +26,8 @@ namespace DracarysInteractive.StanleysCup
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+           
+
             switch (collision.tag)
             {
                 case "PlayerX":

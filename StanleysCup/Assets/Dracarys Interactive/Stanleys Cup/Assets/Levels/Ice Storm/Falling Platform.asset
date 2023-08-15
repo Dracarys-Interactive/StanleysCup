@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae60780165d89194b806813364fbc547, type: 3}
+  m_Name: Falling Platform
+  m_EditorClassIdentifier: 
+  spawnableName: Falling Platform
+  prefab: {fileID: 4969419485670326770, guid: d7a81cf83aa72ac41b710791ac042bad, type: 3}
+  maximumInstances: 50
+  secondsBetweenSpawns: 2
+  lifetimeInSeconds: 0
+  spawningRect: {fileID: 11400000, guid: dc08979dd9bcd3f4e812792707384562, type: 2}
+  movement: 1
+  waypoints: []

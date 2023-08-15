@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DracarysInteractive.StanleysCup
 {
-    public class Platform : Moveable
+    public class Projectile : Moveable
     {
     }
 }

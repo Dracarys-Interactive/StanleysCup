@@ -54,7 +54,7 @@ namespace DracarysInteractive.StanleysCup
             if (!(inBounds = isInBounds()))
             {
                 if (animator.GetBool("Grounded") || !isAboveBounds())
-                    PlayerOutOfBounds(gameObject);
+                    DestroyPlayer();
             }
 
             doJump = false;
@@ -76,7 +76,7 @@ namespace DracarysInteractive.StanleysCup
 
         void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.tag == "Platform")
+            if (other.gameObject.GetComponent<Platform>())
             {
                 transform.parent = other.transform;
                 animator.SetBool("Grounded", true);
@@ -86,10 +86,19 @@ namespace DracarysInteractive.StanleysCup
         // if the player exits a collision with a moving platform, then unchild it
         void OnCollisionExit2D(Collision2D other)
         {
-            if (other.gameObject.tag == "Platform")
+            if (other.gameObject.GetComponent<Platform>())
             {
                 transform.parent = null;
                 animator.SetBool("Grounded", false);
+            }
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.GetComponent<Projectile>())
+            {
+                Destroy(other.gameObject);
+                DestroyPlayer();
             }
         }
 
@@ -103,7 +112,7 @@ namespace DracarysInteractive.StanleysCup
             return transform.position.y > bounds.rect.yMax;
         }
 
-        void PlayerOutOfBounds(GameObject player)
+        void DestroyPlayer()
         {
             GameManager.Instance.ResetGame();
 
@@ -124,9 +133,9 @@ namespace DracarysInteractive.StanleysCup
 
             if (closestToOrigin)
             {
-                player.transform.parent = closestToOrigin.transform;
-                player.transform.localPosition = playerOffset;
-                player.GetComponent<Animator>().SetBool("Grounded", true);
+                gameObject.transform.parent = closestToOrigin.transform;
+                gameObject.transform.localPosition = playerOffset;
+                gameObject.GetComponent<Animator>().SetBool("Grounded", true);
             }
         }
 

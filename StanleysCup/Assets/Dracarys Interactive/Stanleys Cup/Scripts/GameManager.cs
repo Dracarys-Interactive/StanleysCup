@@ -218,6 +218,7 @@ namespace DracarysInteractive.StanleysCup
         // public function to remove player life and reset game accordingly
         public void ResetGame()
         {
+            Destroy(_player);
             lives--;
             refreshGUI();
 
