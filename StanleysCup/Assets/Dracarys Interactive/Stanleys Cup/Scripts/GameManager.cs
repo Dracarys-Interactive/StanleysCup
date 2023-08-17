@@ -43,6 +43,26 @@ namespace DracarysInteractive.StanleysCup
         {
             base.Awake();
             audioSource = GetComponent<AudioSource>();
+
+            string levelName = GameState.Instance.LevelName;
+            LevelSO level = Resources.Load("Levels/" + levelName + "/" + levelName) as LevelSO;
+
+            if (!level)
+            {
+                GameState.Instance.LevelName = currentLevel.name;
+                GameState.Instance.LevelScore = 0; 
+                GameState.Instance.LevelLivesLost = 0;
+
+                score = 0;
+                lives = currentLevel.lives;
+            }
+            else
+            {
+                currentLevel = level;
+                score = GameState.Instance.LevelScore;
+                lives = currentLevel.lives - GameState.Instance.LevelLivesLost;
+            }
+
             refreshGUI();
         }
 
@@ -61,7 +81,6 @@ namespace DracarysInteractive.StanleysCup
         {
             if (_player == null)
             {
-
                 GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
 
                 if (platforms.Length >= minPlatformsToSpawnPlayer)
@@ -121,19 +140,12 @@ namespace DracarysInteractive.StanleysCup
 
         private void Start()
         {
-            StartLevel(currentLevel);
+            StartLevel();
         }
 
-        void StartLevel(LevelSO levelData)
+        void StartLevel()
         {
-            if (!levelData)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-
-            lives = levelData.lives;
-            score = 0;
-            enableDoubleJump = levelData.canDoubleJump;
+            enableDoubleJump = currentLevel.canDoubleJump;
 
             if (_player)
             {
@@ -145,9 +157,9 @@ namespace DracarysInteractive.StanleysCup
                 GameObject.Destroy(child.gameObject);
             }
 
-            levelName.text = levelData.levelName;
+            levelName.text = currentLevel.levelName;
 
-            foreach(CollectableSO collectable in levelData.collectables)
+            foreach(CollectableSO collectable in currentLevel.collectables)
             {
                 GameObject go = new GameObject(collectable.spawnableName + " Spawner");
                 go.transform.SetParent(transform);
@@ -159,7 +171,7 @@ namespace DracarysInteractive.StanleysCup
                 randomSpawner.spawnableSO = collectable;
             }
 
-            foreach (PlatformSO platform in levelData.platforms)
+            foreach (PlatformSO platform in currentLevel.platforms)
             {
                 GameObject go = new GameObject(platform.spawnableName + " Spawner");
                 go.transform.SetParent(transform);
@@ -206,6 +218,7 @@ namespace DracarysInteractive.StanleysCup
         {
             // increase score
             score += amount;
+            GameState.Instance.LevelScore = score;
 
             // update UI
             UIScore.text = "Score: " + score.ToString();
@@ -220,18 +233,38 @@ namespace DracarysInteractive.StanleysCup
         {
             Destroy(_player);
             lives--;
-            refreshGUI();
+            GameState.Instance.LevelLivesLost++;
 
             if (lives <= 0)
             {
-                StartLevel(currentLevel);
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
+                score = 0;
+                lives = currentLevel.lives;
+                StartLevel();
             }
+
+            refreshGUI();
         }
 
         // public function for level complete
         public void LevelComplete()
         {
-            StartLevel(currentLevel = currentLevel.nextLevel);
+            currentLevel = currentLevel.nextLevel;
+
+            if (!currentLevel)
+            {
+                GameState.Instance.Clear();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                GameState.Instance.LevelName = currentLevel.name;
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
+            }
+
+            StartLevel();
         }
 
         public void TogglePause()
