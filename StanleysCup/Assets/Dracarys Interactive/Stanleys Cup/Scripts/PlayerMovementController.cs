@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace DracarysInteractive.StanleysCup
 {
     public class PlayerMovementController : MonoBehaviour
     {
+        public UnityEvent<GameObject> playerOutOfBounds;
         [Range(0.0f, 10.0f)]
         public float moveSpeed = 3f;
         public float jumpForce = 600f;
@@ -24,7 +26,6 @@ namespace DracarysInteractive.StanleysCup
         {
             animator = GetComponent<Animator>();
             rbody = GetComponent<Rigidbody2D>();
-
         }
 
         void Update()
@@ -54,7 +55,10 @@ namespace DracarysInteractive.StanleysCup
             if (!(inBounds = isInBounds()))
             {
                 if (animator.GetBool("Grounded") || !isAboveBounds())
+                {
+                    playerOutOfBounds.Invoke(gameObject);
                     DestroyPlayer();
+                }
             }
 
             doJump = false;

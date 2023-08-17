@@ -7,6 +7,8 @@ using TMPro;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Events;
+using System;
 
 namespace DracarysInteractive.StanleysCup
 {
@@ -96,6 +98,7 @@ namespace DracarysInteractive.StanleysCup
                 if (platforms.Length >= minPlatformsToSpawnPlayer)
                 {
                     _player = Instantiate(playerPrefab);
+                    _player.GetComponent<PlayerMovementController>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
                     _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
 
                     GameObject closestToOrigin = null;
@@ -147,6 +150,11 @@ namespace DracarysInteractive.StanleysCup
                 c.a -= splashFade;
                 UISplash.color = c;
             }
+        }
+
+        private void OnPlayerOutOfBounds(GameObject player)
+        {
+            Debug.Log("OnPlayerOutOfBounds");
         }
 
         private void Start()
