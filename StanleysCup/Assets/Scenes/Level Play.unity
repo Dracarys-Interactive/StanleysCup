@@ -1900,7 +1900,7 @@ MonoBehaviour:
     type: 3}
   minPlatformsToSpawnPlayer: 5
   followCam: {fileID: 1475761187}
-  currentLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
+  currentLevel: {fileID: 11400000, guid: 0d917012191361848881eb9d16ef8543, type: 2}
   levelName: {fileID: 132623067}
   score: 0
   lives: 6
@@ -1919,7 +1919,9 @@ MonoBehaviour:
   - {fileID: 900283442}
   splashFade: 0.004
   miniMap: {fileID: 522840276}
+  miniMapToggleButton: {fileID: 1641554960}
   enableDoubleJump: 0
+  resetGameState: 1
 --- !u!1 &1398030389
 GameObject:
   m_ObjectHideFlags: 0

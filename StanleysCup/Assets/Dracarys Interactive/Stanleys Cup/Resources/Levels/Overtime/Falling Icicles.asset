@@ -17,6 +17,6 @@ MonoBehaviour:
   maximumInstances: 25
   secondsBetweenSpawns: 0.1
   lifetimeInSeconds: 0
-  spawningRect: {fileID: 11400000, guid: dc08979dd9bcd3f4e812792707384562, type: 2}
+  spawningRect: {fileID: 11400000, guid: f4cb1a32017ea2e4ab18020d8d4e42c6, type: 2}
   movement: 1
   waypoints: []

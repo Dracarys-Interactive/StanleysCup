@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections.Generic;
 using Cinemachine;
+using UnityEngine.Rendering.Universal;
 
 namespace DracarysInteractive.StanleysCup
 {
@@ -29,8 +30,11 @@ namespace DracarysInteractive.StanleysCup
         public GameObject[] UIExtraLives;
         public float splashFade = 0.005f;
         public GameObject miniMap;
+        public Button miniMapToggleButton;
 
         public bool enableDoubleJump = false;
+
+        public bool resetGameState = false;
 
         // private variables
         GameObject _player;
@@ -42,6 +46,12 @@ namespace DracarysInteractive.StanleysCup
         protected override void Awake()
         {
             base.Awake();
+
+            if (resetGameState)
+            {
+                GameState.Instance.Clear();
+            }
+
             audioSource = GetComponent<AudioSource>();
 
             string levelName = GameState.Instance.LevelName;
@@ -86,6 +96,7 @@ namespace DracarysInteractive.StanleysCup
                 if (platforms.Length >= minPlatformsToSpawnPlayer)
                 {
                     _player = Instantiate(playerPrefab);
+                    _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
 
                     GameObject closestToOrigin = null;
                     float minDistance = 0;
@@ -145,6 +156,7 @@ namespace DracarysInteractive.StanleysCup
 
         void StartLevel()
         {
+            miniMapToggleButton.gameObject.SetActive(currentLevel.hasMiniMap);
             enableDoubleJump = currentLevel.canDoubleJump;
 
             if (_player)
@@ -262,6 +274,9 @@ namespace DracarysInteractive.StanleysCup
                 GameState.Instance.LevelName = currentLevel.name;
                 GameState.Instance.LevelScore = 0;
                 GameState.Instance.LevelLivesLost = 0;
+
+                score = 0;
+                lives = currentLevel.lives;
             }
 
             StartLevel();
