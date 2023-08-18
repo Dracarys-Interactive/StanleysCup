@@ -88,57 +88,20 @@ namespace DracarysInteractive.StanleysCup
             doPause = context.performed;
         }
 
-        // game loop
         void Update()
         {
-            if (_player == null)
-            {
-                GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
-
-                if (platforms.Length >= minPlatformsToSpawnPlayer)
-                {
-                    _player = Instantiate(playerPrefab);
-                    _player.GetComponent<PlayerMovementController>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
-                    _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
-
-                    GameObject closestToOrigin = null;
-                    float minDistance = 0;
-
-                    foreach (GameObject platform in platforms)
-                    {
-                        float distance = Vector2.Distance(Vector2.zero, platform.gameObject.transform.position);
-
-                        if (closestToOrigin == null || distance < minDistance)
-                        {
-                            closestToOrigin = platform;
-                            minDistance = distance;
-                        }
-                    }
-
-                    if (closestToOrigin)
-                    {
-                        Vector2 playerOffset = new Vector2(0, 1f); // new Vector2(0, 0.056f);
-                        _player.transform.parent = closestToOrigin.transform;
-                        _player.transform.localPosition = playerOffset;
-                        _player.GetComponent<Animator>().SetBool("Grounded", true);
-                        followCam.Follow = _player.transform;
-                    }
-                }
-            }
-            
-            // if pause key pressed then pause the game
             if (doPause)
             {
                 if (Time.timeScale > 0f)
                 {
-                    Time.timeScale = 0f; // this pauses the game action
+                    Time.timeScale = 0f;
                     Color c = UISplash.color;
                     c.a = 1.0f;
                     UISplash.color = c;
                 }
                 else
                 {
-                    Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
+                    Time.timeScale = 1f;
                 }
 
                 doPause = false;
@@ -167,10 +130,15 @@ namespace DracarysInteractive.StanleysCup
             miniMapToggleButton.gameObject.SetActive(currentLevel.hasMiniMap);
             enableDoubleJump = currentLevel.canDoubleJump;
 
-            if (_player)
+            if (!_player)
             {
-                Destroy(_player.gameObject);
+                _player = Instantiate(playerPrefab);
+                _player.GetComponent<PlayerMovementController>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
+                followCam.Follow = _player.transform;
             }
+
+            _player.transform.parent = null;
+            _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
 
             foreach (Transform child in transform)
             {
@@ -201,6 +169,16 @@ namespace DracarysInteractive.StanleysCup
                 randomSpawner.maximumInstances = platform.maximumInstances;
                 randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
                 randomSpawner.spawnableSO = platform;
+
+                if (!_player.transform.parent)
+                {
+                    GameObject spawn = randomSpawner.Spawn();
+                    spawn.transform.position = Vector3.zero;
+
+                    _player.transform.parent = spawn.transform;
+                    _player.transform.localPosition = new Vector2(0, 0.4f);
+                    _player.GetComponent<Animator>().SetBool("Grounded", true);
+                }
             }
 
             ParticleSystem snow = FindObjectOfType<ParticleSystem>();
@@ -251,7 +229,7 @@ namespace DracarysInteractive.StanleysCup
         // public function to remove player life and reset game accordingly
         public void ResetGame()
         {
-            Destroy(_player);
+            //Destroy(_player);
             lives--;
             GameState.Instance.LevelLivesLost++;
 
@@ -262,6 +240,15 @@ namespace DracarysInteractive.StanleysCup
                 score = 0;
                 lives = currentLevel.lives;
                 StartLevel();
+            }
+            else
+            {
+                Platform platform = GameObject.FindAnyObjectByType<Platform>();
+                platform.transform.position = Vector3.zero;
+
+                _player.transform.parent = platform.transform;
+                _player.transform.localPosition = new Vector2(0, 0.4f);
+                _player.GetComponent<Animator>().SetBool("Grounded", true);
             }
 
             refreshGUI();

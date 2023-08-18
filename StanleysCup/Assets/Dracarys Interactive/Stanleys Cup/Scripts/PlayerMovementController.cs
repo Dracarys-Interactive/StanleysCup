@@ -56,8 +56,7 @@ namespace DracarysInteractive.StanleysCup
             {
                 if (animator.GetBool("Grounded") || !isAboveBounds())
                 {
-                    playerOutOfBounds.Invoke(gameObject);
-                    DestroyPlayer();
+                    GameManager.Instance.ResetGame();
                 }
             }
 
@@ -102,7 +101,7 @@ namespace DracarysInteractive.StanleysCup
             if (other.gameObject.GetComponent<Projectile>())
             {
                 Destroy(other.gameObject);
-                DestroyPlayer();
+                GameManager.Instance.ResetGame();
             }
         }
 
@@ -114,33 +113,6 @@ namespace DracarysInteractive.StanleysCup
         bool isAboveBounds()
         {
             return transform.position.y > bounds.rect.yMax;
-        }
-
-        void DestroyPlayer()
-        {
-            GameManager.Instance.ResetGame();
-
-            GameObject[] platforms = GameObject.FindGameObjectsWithTag("Platform");
-            GameObject closestToOrigin = null;
-            float minDistance = 0;
-
-            foreach (GameObject platform in platforms)
-            {
-                float distance = Vector2.Distance(Vector2.zero, platform.gameObject.transform.position);
-
-                if (closestToOrigin == null || distance < minDistance)
-                {
-                    closestToOrigin = platform;
-                    minDistance = distance;
-                }
-            }
-
-            if (closestToOrigin)
-            {
-                gameObject.transform.parent = closestToOrigin.transform;
-                gameObject.transform.localPosition = playerOffset;
-                gameObject.GetComponent<Animator>().SetBool("Grounded", true);
-            }
         }
 
         public void OnJump(InputAction.CallbackContext context)

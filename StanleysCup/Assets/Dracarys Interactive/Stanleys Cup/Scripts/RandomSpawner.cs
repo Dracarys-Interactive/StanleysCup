@@ -29,7 +29,7 @@ namespace DracarysInteractive.StanleysCup
                 Disappear(queue.Dequeue());
         }
 
-        void Spawn()
+        public GameObject Spawn()
         {
             GameObject spawn = Instantiate(prefab, transform);
 
@@ -65,6 +65,8 @@ namespace DracarysInteractive.StanleysCup
             }
 
             timeOfLastSpawn = Time.time;
+
+            return spawn;
         }
 
         void Disappear(GameObject go)
@@ -79,6 +81,5 @@ namespace DracarysInteractive.StanleysCup
                     Destroy(go);
             }
         }
-
     }
 }
