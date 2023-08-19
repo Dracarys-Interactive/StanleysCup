@@ -57,6 +57,32 @@ namespace DracarysInteractive.StanleysCup
 
                     platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
                 }
+
+                Enemy enemy = spawn.GetComponent<Enemy>();
+
+                if (enemy)
+                {
+                    EnemySO enemySO = (EnemySO)spawnableSO;
+
+                    if (enemySO.placeOnPlatform)
+                    {
+                        Platform[] platforms = FindObjectsByType<Platform>(FindObjectsSortMode.None);
+
+                        enemy.transform.parent = null;
+
+                        while (!enemy.transform.parent)
+                        {
+                            Platform parent = platforms[Random.Range(0, platforms.Length)];
+
+                            if (!parent.GetComponentInChildren<Enemy>() && !parent.GetComponentInChildren<Player>())
+                            {
+                                enemy.transform.position = Vector2.zero;
+                                enemy.transform.parent = parent.gameObject.transform;
+                                enemy.transform.localPosition = new Vector2(0, 0.25f);
+                            }
+                        }
+                    }
+                }
             }
             else
             {

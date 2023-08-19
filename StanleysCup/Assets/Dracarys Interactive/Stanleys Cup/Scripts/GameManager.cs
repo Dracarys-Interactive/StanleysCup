@@ -133,7 +133,7 @@ namespace DracarysInteractive.StanleysCup
             if (!_player)
             {
                 _player = Instantiate(playerPrefab);
-                _player.GetComponent<PlayerMovementController>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
+                _player.GetComponent<Player>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
                 followCam.Follow = _player.transform;
             }
 
@@ -179,6 +179,18 @@ namespace DracarysInteractive.StanleysCup
                     _player.transform.localPosition = new Vector2(0, 0.4f);
                     _player.GetComponent<Animator>().SetBool("Grounded", true);
                 }
+            }
+
+            foreach (EnemySO enemy in currentLevel.enemies)
+            {
+                GameObject go = new GameObject(enemy.spawnableName + " Spawner");
+                go.transform.SetParent(transform);
+
+                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                randomSpawner.prefab = enemy.prefab;
+                randomSpawner.maximumInstances = enemy.maximumInstances;
+                randomSpawner.secondsBetweenSpawns = enemy.secondsBetweenSpawns;
+                randomSpawner.spawnableSO = enemy;
             }
 
             ParticleSystem snow = FindObjectOfType<ParticleSystem>();

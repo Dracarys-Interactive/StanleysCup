@@ -11,6 +11,7 @@ namespace DracarysInteractive.StanleysCup
         public string levelName;
         public CollectableSO[] collectables;
         public PlatformSO[] platforms;
+        public EnemySO[] enemies;
         public int pointsToAdvance;
         public bool hasMiniMap;
         public bool useSpotLight;

@@ -25,7 +25,7 @@ namespace DracarysInteractive.StanleysCup
             }
         }
 
-        void Update()
+        protected virtual void Update()
         {
             Vector2 position = transform.position;
 

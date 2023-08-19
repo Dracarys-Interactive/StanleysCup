@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace DracarysInteractive.StanleysCup
 {
-    public class PlayerMovementController : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public UnityEvent<GameObject> playerOutOfBounds;
         [Range(0.0f, 10.0f)]
@@ -79,11 +79,8 @@ namespace DracarysInteractive.StanleysCup
 
         void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.GetComponent<Platform>())
-            {
-                transform.parent = other.transform;
-                animator.SetBool("Grounded", true);
-            }
+            transform.parent = other.transform;
+            animator.SetBool("Grounded", true);
         }
 
         // if the player exits a collision with a moving platform, then unchild it

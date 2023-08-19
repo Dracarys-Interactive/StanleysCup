@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de1306ad465dba4ea7db5cf08a1a836, type: 3}
-  m_Name: Ice Storm
+  m_Name: Bad Frosty
   m_EditorClassIdentifier: 
-  levelName: Ice Storm
+  levelName: Bad Frosty
   collectables:
-  - {fileID: 11400000, guid: d74f77188f367b94da97c1ccdcb4057f, type: 2}
+  - {fileID: 11400000, guid: 67690603d2283404783c63172f0d8789, type: 2}
   platforms:
-  - {fileID: 11400000, guid: 3c12c573a6bfccd44a3a886708524dad, type: 2}
-  - {fileID: 11400000, guid: 789b37bf4d2ecc64cbfe577484d56711, type: 2}
-  - {fileID: 11400000, guid: 1e2e0d391be262e498933da429ac7603, type: 2}
-  enemies: []
+  - {fileID: 11400000, guid: 5fb527957d3b5744c9eee11a903f3579, type: 2}
+  - {fileID: 11400000, guid: d301eef5f0c919e45933edfd7b7f240b, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: a2d418a97160f28458784d8eab4b3971, type: 2}
   pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6
-  nextLevel: {fileID: 11400000, guid: 320adeff43f974c43b9b29ebc5136a1b, type: 2}
+  nextLevel: {fileID: 11400000, guid: 0d917012191361848881eb9d16ef8543, type: 2}
   canDoubleJump: 0
