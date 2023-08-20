@@ -19,9 +19,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 101ef386b3609d34ebae986875907c71, type: 2}
   platforms:
   - {fileID: 11400000, guid: 2d363e6723423864a8e07173cd4955c5, type: 2}
+  enemies: []
   pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
-  lives: 5
+  lives: 6
   nextLevel: {fileID: 11400000, guid: 38cd9e7d90f610c479bb887b941efe04, type: 2}
   canDoubleJump: 0

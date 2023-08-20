@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableName: Falling Icicle
   prefab: {fileID: 4739294461318077763, guid: af3a80898d3775a4f9469e6e2e39647e, type: 3}
-  maximumInstances: 25
-  secondsBetweenSpawns: 0.1
+  maximumInstances: 10
+  secondsBetweenSpawns: 0.5
   lifetimeInSeconds: 0
   spawningRect: {fileID: 11400000, guid: f4cb1a32017ea2e4ab18020d8d4e42c6, type: 2}
   movement: 1

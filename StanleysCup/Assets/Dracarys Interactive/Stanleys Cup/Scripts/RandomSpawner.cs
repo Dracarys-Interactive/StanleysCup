@@ -69,10 +69,11 @@ namespace DracarysInteractive.StanleysCup
                         Platform[] platforms = FindObjectsByType<Platform>(FindObjectsSortMode.None);
 
                         enemy.transform.parent = null;
+                        shuffle(platforms);
 
-                        while (!enemy.transform.parent)
+                        for (int i = 0; i < platforms.Length || !enemy.transform.parent; i++)
                         {
-                            Platform parent = platforms[Random.Range(0, platforms.Length)];
+                            Platform parent = platforms[i];
 
                             if (!parent.GetComponentInChildren<Enemy>() && !parent.GetComponentInChildren<Player>())
                             {
@@ -80,6 +81,12 @@ namespace DracarysInteractive.StanleysCup
                                 enemy.transform.parent = parent.gameObject.transform;
                                 enemy.transform.localPosition = new Vector2(0, 0.25f);
                             }
+                        }
+
+                        if (!enemy.transform.parent)
+                        {
+                            Debug.Log("can't place Enemy on platform, destroying...");
+                            Destroy(spawn);
                         }
                     }
                 }
@@ -105,6 +112,17 @@ namespace DracarysInteractive.StanleysCup
                     animator.SetTrigger("Disappear");
                 else
                     Destroy(go);
+            }
+        }
+
+        private static void shuffle(Platform[] platforms)
+        {
+            for (int i = 0; i < platforms.Length; i++)
+            {
+                var tmp = platforms[i];
+                int index = Random.Range(i, platforms.Length);
+                platforms[i] = platforms[index];
+                platforms[index] = tmp;
             }
         }
     }

@@ -257,6 +257,7 @@ namespace DracarysInteractive.StanleysCup
             {
                 Platform platform = GameObject.FindAnyObjectByType<Platform>();
                 platform.transform.position = Vector3.zero;
+                platform.speed /= 2;
 
                 _player.transform.parent = platform.transform;
                 _player.transform.localPosition = new Vector2(0, 0.4f);
