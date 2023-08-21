@@ -1905,7 +1905,7 @@ MonoBehaviour:
     type: 3}
   minPlatformsToSpawnPlayer: 5
   followCam: {fileID: 1475761187}
-  currentLevel: {fileID: 11400000, guid: 320adeff43f974c43b9b29ebc5136a1b, type: 2}
+  currentLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
   levelName: {fileID: 132623067}
   score: 0
   lives: 6
