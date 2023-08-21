@@ -11,7 +11,8 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
-            if(bounds && !bounds.rect.Contains(transform.position + tolerance))
+            if(bounds && !(bounds.rect.Contains(transform.position + tolerance) || 
+                bounds.rect.Contains(transform.position - tolerance)))
             {
                 Destroy(gameObject);
             }

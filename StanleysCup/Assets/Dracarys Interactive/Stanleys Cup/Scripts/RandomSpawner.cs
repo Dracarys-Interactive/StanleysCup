@@ -17,7 +17,10 @@ namespace DracarysInteractive.StanleysCup
 
         void Start()
         {
-            Spawn();
+            while (queue.Count < Mathf.Min(5, maximumInstances / 2))
+            {
+                Spawn();
+            }
         }
 
         void Update()

@@ -93,15 +93,6 @@ namespace DracarysInteractive.StanleysCup
             }
         }
 
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.GetComponent<Projectile>())
-            {
-                Destroy(other.gameObject);
-                GameManager.Instance.ResetGame();
-            }
-        }
-
         bool isInBounds()
         {
             return bounds.rect.Contains(transform.position);

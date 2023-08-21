@@ -9,17 +9,13 @@ namespace DracarysInteractive.StanleysCup
         public AudioClip sfxUponPlayerCollision;
         public ParticleSystem vfxUponPlayerCollision;
 
-        private AudioSource _audioSource;
         private bool _collidedWithPlayer = false;
 
-        private void Awake()
+        void Update()
         {
-            _audioSource = GetComponent<AudioSource>();
-        }
+            Player player = transform.parent.GetComponentInChildren<Player>();
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.tag == "Player" && !_collidedWithPlayer)
+            if (player)
             {
                 _collidedWithPlayer = true;
                 StartCoroutine(CollidedWithPlayer());

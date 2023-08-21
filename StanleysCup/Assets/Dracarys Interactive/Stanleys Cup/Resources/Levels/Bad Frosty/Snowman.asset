@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableName: Snowman
   prefab: {fileID: 8654730711574171463, guid: 9ec7fb2bbf51e9b49800ad818c04e2ea, type: 3}
-  maximumInstances: 3
-  secondsBetweenSpawns: 1
+  maximumInstances: 2
+  secondsBetweenSpawns: 2
   lifetimeInSeconds: 0
   spawningRect: {fileID: 11400000, guid: ba91724309eeb4b4c9d2ac64a65dd59a, type: 2}
   placeOnPlatform: 1

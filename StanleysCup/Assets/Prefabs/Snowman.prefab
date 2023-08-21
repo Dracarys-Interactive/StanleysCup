@@ -146,5 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c58b769f251644cbf654ec930e0f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxUponPlayerCollision: {fileID: 0}
+  sfxUponPlayerCollision: {fileID: 8300000, guid: fdfa94bb3ce7c5241b50b3216146a0c7,
+    type: 3}
   vfxUponPlayerCollision: {fileID: 0}

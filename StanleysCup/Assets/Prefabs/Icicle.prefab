@@ -103,6 +103,8 @@ MonoBehaviour:
   speedVariance: -2
   yaxis: 1
   isFixed: 1
+  sfxUponHit: {fileID: 8300000, guid: fe99767941d9e5d42a00ae7c87afcc5b, type: 3}
+  vfxUponHit: {fileID: 0}
 --- !u!114 &4739294461318077774
 MonoBehaviour:
   m_ObjectHideFlags: 0
