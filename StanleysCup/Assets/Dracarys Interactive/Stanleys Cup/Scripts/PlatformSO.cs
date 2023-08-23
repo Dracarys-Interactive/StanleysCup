@@ -13,7 +13,8 @@ namespace DracarysInteractive.StanleysCup
             down,
             left,
             right,
-            waypoints
+            waypoints,
+            stationary,
         }
 
         public Movement movement = Movement.up;

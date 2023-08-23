@@ -16,11 +16,12 @@ MonoBehaviour:
 
     Cup!'
   collectables: []
-  platforms: []
+  platforms:
+  - {fileID: 11400000, guid: caa9a8aa49853a34d861a647d4b06fd5, type: 2}
   enemies: []
-  pointsToAdvance: 0
+  pointsToAdvance: 1
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6
   nextLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
-  canDoubleJump: 0
+  canDoubleJump: 1

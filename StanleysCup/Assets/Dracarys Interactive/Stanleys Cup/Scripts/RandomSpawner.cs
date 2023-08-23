@@ -25,7 +25,7 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
-            if (Time.time - timeOfLastSpawn > secondsBetweenSpawns)
+            if (secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
                 Spawn();
 
             if (maximumInstances > 0 && queue.Count > maximumInstances)
@@ -56,6 +56,11 @@ namespace DracarysInteractive.StanleysCup
                     {
                         platform.speed *= -1;
                         platform.speedVariance *= -1;
+                    }
+                    else if (platformSO.movement == PlatformSO.Movement.stationary)
+                    {
+                        platform.speed = 0;
+                        platform.speedVariance = 0;
                     }
 
                     platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
