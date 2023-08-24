@@ -18,5 +18,6 @@ namespace DracarysInteractive.StanleysCup
         public int lives;
         public LevelSO nextLevel;
         public bool canDoubleJump;
+        public bool preserveGameState = true;
     }
 }

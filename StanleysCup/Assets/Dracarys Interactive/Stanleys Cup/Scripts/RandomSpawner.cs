@@ -9,7 +9,7 @@ namespace DracarysInteractive.StanleysCup
         public GameObject prefab;
         public float secondsBetweenSpawns = 0.5f;
         public int maximumInstances = -1;
-        public RectTransform spawningRect;
+        //public RectTransform spawningRect;
         public SpawnableSO spawnableSO;
 
         private float timeOfLastSpawn = 0f;
@@ -25,10 +25,10 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
-            if (secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
+            if (queue.Count < maximumInstances && secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
                 Spawn();
 
-            if (maximumInstances > 0 && queue.Count > maximumInstances)
+            if (!spawnableSO.persistent && maximumInstances > 0 && queue.Count > maximumInstances)
                 Disappear(queue.Dequeue());
         }
 
@@ -61,6 +61,10 @@ namespace DracarysInteractive.StanleysCup
                     {
                         platform.speed = 0;
                         platform.speedVariance = 0;
+                    }
+                    else if (platformSO.movement == PlatformSO.Movement.waypoints)
+                    {
+                        platform.waypoints = platformSO.waypoints;
                     }
 
                     platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
@@ -98,12 +102,21 @@ namespace DracarysInteractive.StanleysCup
                         }
                     }
                 }
+
+                CollectableResource collectable = spawn.GetComponent<CollectableResource>();
+
+                if (collectable)
+                {
+
+                }
             }
+            /*
             else
             {
                 spawn.transform.position = new Vector3(Random.Range(spawningRect.rect.xMin, spawningRect.rect.xMax),
                     Random.Range(spawningRect.rect.yMin, spawningRect.rect.yMax), 0) + spawningRect.transform.position;
             }
+            */
 
             timeOfLastSpawn = Time.time;
 

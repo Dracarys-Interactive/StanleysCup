@@ -15,13 +15,16 @@ MonoBehaviour:
   levelName: 'Stanley''s
 
     Cup!'
-  collectables: []
+  collectables:
+  - {fileID: 11400000, guid: a820e2fead547a34a844c77d2ab81b8e, type: 2}
   platforms:
   - {fileID: 11400000, guid: caa9a8aa49853a34d861a647d4b06fd5, type: 2}
+  - {fileID: 11400000, guid: b668f4080fc207b4d8a9140569ef4508, type: 2}
   enemies: []
-  pointsToAdvance: 1
+  pointsToAdvance: 10
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6
-  nextLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
+  nextLevel: {fileID: 11400000}
   canDoubleJump: 1
+  preserveGameState: 0

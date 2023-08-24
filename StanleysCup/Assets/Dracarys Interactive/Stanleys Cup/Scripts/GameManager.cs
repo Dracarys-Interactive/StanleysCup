@@ -61,9 +61,12 @@ namespace DracarysInteractive.StanleysCup
 
             if (!level)
             {
-                GameState.Instance.LevelName = currentLevel.name;
-                GameState.Instance.LevelScore = 0; 
-                GameState.Instance.LevelLivesLost = 0;
+                if (currentLevel.preserveGameState)
+                {
+                    GameState.Instance.LevelName = currentLevel.name;
+                    GameState.Instance.LevelScore = 0;
+                    GameState.Instance.LevelLivesLost = 0;
+                }
 
                 score = 0;
                 lives = currentLevel.lives;
@@ -228,7 +231,9 @@ namespace DracarysInteractive.StanleysCup
         {
             // increase score
             score += amount;
-            GameState.Instance.LevelScore = score;
+
+            if (currentLevel.preserveGameState)
+                GameState.Instance.LevelScore = score;
 
             // update UI
             UIScore.text = "Score: " + score.ToString();
@@ -243,12 +248,16 @@ namespace DracarysInteractive.StanleysCup
         {
             //Destroy(_player);
             lives--;
-            GameState.Instance.LevelLivesLost++;
+            if (currentLevel.preserveGameState)
+                GameState.Instance.LevelLivesLost++;
 
             if (lives <= 0)
             {
-                GameState.Instance.LevelScore = 0;
-                GameState.Instance.LevelLivesLost = 0;
+                if (currentLevel.preserveGameState) { 
+                    GameState.Instance.LevelScore = 0;
+                    GameState.Instance.LevelLivesLost = 0;
+                }
+
                 score = 0;
                 lives = currentLevel.lives;
                 StartLevel();
@@ -279,9 +288,12 @@ namespace DracarysInteractive.StanleysCup
             }
             else
             {
-                GameState.Instance.LevelName = currentLevel.name;
-                GameState.Instance.LevelScore = 0;
-                GameState.Instance.LevelLivesLost = 0;
+                if (currentLevel.preserveGameState)
+                {
+                    GameState.Instance.LevelName = currentLevel.name;
+                    GameState.Instance.LevelScore = 0;
+                    GameState.Instance.LevelLivesLost = 0;
+                }
 
                 score = 0;
                 lives = currentLevel.lives;

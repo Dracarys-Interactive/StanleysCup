@@ -11,6 +11,7 @@ namespace DracarysInteractive.StanleysCup
         public int maximumInstances;
         public float secondsBetweenSpawns;
         public float lifetimeInSeconds;
-        public RectangleSO spawningRect; 
+        public RectangleSO spawningRect;
+        public bool persistent;
     }
 }
