@@ -61,12 +61,9 @@ namespace DracarysInteractive.StanleysCup
 
             if (!level)
             {
-                if (currentLevel.preserveGameState)
-                {
-                    GameState.Instance.LevelName = currentLevel.name;
-                    GameState.Instance.LevelScore = 0;
-                    GameState.Instance.LevelLivesLost = 0;
-                }
+                GameState.Instance.LevelName = currentLevel.name;
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
 
                 score = 0;
                 lives = currentLevel.lives;
@@ -150,50 +147,59 @@ namespace DracarysInteractive.StanleysCup
 
             levelName.text = currentLevel.levelName;
 
-            foreach(CollectableSO collectable in currentLevel.collectables)
+            if (currentLevel.collectables != null)
             {
-                GameObject go = new GameObject(collectable.spawnableName + " Spawner");
-                go.transform.SetParent(transform);
-
-                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                randomSpawner.prefab = collectable.prefab;
-                randomSpawner.maximumInstances = collectable.maximumInstances;
-                randomSpawner.secondsBetweenSpawns = collectable.secondsBetweenSpawns;
-                randomSpawner.spawnableSO = collectable;
-            }
-
-            foreach (PlatformSO platform in currentLevel.platforms)
-            {
-                GameObject go = new GameObject(platform.spawnableName + " Spawner");
-                go.transform.SetParent(transform);
-
-                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                randomSpawner.prefab = platform.prefab;
-                randomSpawner.maximumInstances = platform.maximumInstances;
-                randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
-                randomSpawner.spawnableSO = platform;
-
-                if (!_player.transform.parent)
+                foreach (CollectableSO collectable in currentLevel.collectables)
                 {
-                    GameObject spawn = randomSpawner.Spawn();
-                    spawn.transform.position = Vector3.zero;
+                    GameObject go = new GameObject(collectable.spawnableName + " Spawner");
+                    go.transform.SetParent(transform);
 
-                    _player.transform.parent = spawn.transform;
-                    _player.transform.localPosition = new Vector2(0, 0.4f);
-                    _player.GetComponent<Animator>().SetBool("Grounded", true);
+                    RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                    randomSpawner.prefab = collectable.prefab;
+                    randomSpawner.maximumInstances = collectable.maximumInstances;
+                    randomSpawner.secondsBetweenSpawns = collectable.secondsBetweenSpawns;
+                    randomSpawner.spawnableSO = collectable;
                 }
             }
 
-            foreach (EnemySO enemy in currentLevel.enemies)
+            if (currentLevel.platforms != null)
             {
-                GameObject go = new GameObject(enemy.spawnableName + " Spawner");
-                go.transform.SetParent(transform);
+                foreach (PlatformSO platform in currentLevel.platforms)
+                {
+                    GameObject go = new GameObject(platform.spawnableName + " Spawner");
+                    go.transform.SetParent(transform);
 
-                RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                randomSpawner.prefab = enemy.prefab;
-                randomSpawner.maximumInstances = enemy.maximumInstances;
-                randomSpawner.secondsBetweenSpawns = enemy.secondsBetweenSpawns;
-                randomSpawner.spawnableSO = enemy;
+                    RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                    randomSpawner.prefab = platform.prefab;
+                    randomSpawner.maximumInstances = platform.maximumInstances;
+                    randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
+                    randomSpawner.spawnableSO = platform;
+
+                    if (!_player.transform.parent)
+                    {
+                        GameObject spawn = randomSpawner.Spawn();
+                        spawn.transform.position = Vector3.zero;
+
+                        _player.transform.parent = spawn.transform;
+                        _player.transform.localPosition = new Vector2(0, 0.4f);
+                        _player.GetComponent<Animator>().SetBool("Grounded", true);
+                    }
+                }
+            }
+
+            if (currentLevel.enemies != null)
+            {
+                foreach (EnemySO enemy in currentLevel.enemies)
+                {
+                    GameObject go = new GameObject(enemy.spawnableName + " Spawner");
+                    go.transform.SetParent(transform);
+
+                    RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
+                    randomSpawner.prefab = enemy.prefab;
+                    randomSpawner.maximumInstances = enemy.maximumInstances;
+                    randomSpawner.secondsBetweenSpawns = enemy.secondsBetweenSpawns;
+                    randomSpawner.spawnableSO = enemy;
+                }
             }
 
             ParticleSystem snow = FindObjectOfType<ParticleSystem>();
@@ -232,8 +238,7 @@ namespace DracarysInteractive.StanleysCup
             // increase score
             score += amount;
 
-            if (currentLevel.preserveGameState)
-                GameState.Instance.LevelScore = score;
+            GameState.Instance.LevelScore = score;
 
             // update UI
             UIScore.text = "Score: " + score.ToString();
@@ -248,15 +253,12 @@ namespace DracarysInteractive.StanleysCup
         {
             //Destroy(_player);
             lives--;
-            if (currentLevel.preserveGameState)
-                GameState.Instance.LevelLivesLost++;
+            GameState.Instance.LevelLivesLost++;
 
             if (lives <= 0)
             {
-                if (currentLevel.preserveGameState) { 
-                    GameState.Instance.LevelScore = 0;
-                    GameState.Instance.LevelLivesLost = 0;
-                }
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
 
                 score = 0;
                 lives = currentLevel.lives;
@@ -288,12 +290,9 @@ namespace DracarysInteractive.StanleysCup
             }
             else
             {
-                if (currentLevel.preserveGameState)
-                {
-                    GameState.Instance.LevelName = currentLevel.name;
-                    GameState.Instance.LevelScore = 0;
-                    GameState.Instance.LevelLivesLost = 0;
-                }
+                GameState.Instance.LevelName = currentLevel.name;
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
 
                 score = 0;
                 lives = currentLevel.lives;

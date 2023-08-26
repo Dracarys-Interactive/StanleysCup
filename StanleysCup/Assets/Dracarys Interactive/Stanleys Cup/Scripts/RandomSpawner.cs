@@ -25,7 +25,7 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
-            if (queue.Count < maximumInstances && secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
+            if ((queue.Count < maximumInstances || !spawnableSO.persistent) && secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
                 Spawn();
 
             if (!spawnableSO.persistent && maximumInstances > 0 && queue.Count > maximumInstances)
@@ -103,11 +103,11 @@ namespace DracarysInteractive.StanleysCup
                     }
                 }
 
-                CollectableResource collectable = spawn.GetComponent<CollectableResource>();
+                Collectable collectable = spawn.GetComponent<Collectable>();
 
                 if (collectable)
                 {
-
+                    collectable.onDestroy = RemoveSpawn;
                 }
             }
             /*
@@ -144,6 +144,28 @@ namespace DracarysInteractive.StanleysCup
                 int index = Random.Range(i, platforms.Length);
                 platforms[i] = platforms[index];
                 platforms[index] = tmp;
+            }
+        }
+
+        public void RemoveSpawn(GameObject spawn)
+        {
+            if (queue.Contains(spawn))
+            {
+                List<GameObject> list = new List<GameObject>();
+                while(queue.Count > 0)
+                {
+                    GameObject go = queue.Dequeue();
+
+                    if (go != spawn)
+                    {
+                        list.Add(go);
+                    }
+                }
+
+                foreach (GameObject go in list)
+                {
+                    queue.Enqueue(go);
+                }
             }
         }
     }

@@ -101,5 +101,12 @@ namespace DracarysInteractive.StanleysCup
                     Debug.LogError(msg);
             }
         }
+
+        private void OnDestroy()
+        {
+            _instance = null;
+            _instantiating = false;
+            AppQuitting = false;
+        }
     }
 }

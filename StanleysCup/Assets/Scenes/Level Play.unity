@@ -1926,7 +1926,7 @@ MonoBehaviour:
   miniMap: {fileID: 522840276}
   miniMapToggleButton: {fileID: 1641554960}
   enableDoubleJump: 0
-  resetGameState: 1
+  resetGameState: 0
 --- !u!1 &1398030389
 GameObject:
   m_ObjectHideFlags: 0

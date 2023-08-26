@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68816b8f6e2b53347b9003d959933382, type: 3}
   m_Name: Collectable Spawn Rect
   m_EditorClassIdentifier: 
-  position: {x: -2, y: 2}
-  width: 8
+  position: {x: 0, y: 2}
+  width: 4
   height: 4

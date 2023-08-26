@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DracarysInteractive.StanleysCup
 {
-    public class CollectableResource : MonoBehaviour
+    public class Collectable : MonoBehaviour
     {
         public int points = 1;
         public AudioClip sfxWhenCollected;
         public ParticleSystem vfxWhenCollected;
+        public Action<GameObject> onDestroy;
 
         private AudioSource _audioSource;
         private bool _collected = false;
@@ -42,6 +44,12 @@ namespace DracarysInteractive.StanleysCup
         void Disappear()
         {
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            if (onDestroy != null)
+                onDestroy.Invoke(gameObject);
         }
     }
 }

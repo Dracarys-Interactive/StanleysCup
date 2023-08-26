@@ -112,5 +112,10 @@ namespace DracarysInteractive.StanleysCup
         {
             vx = context.ReadValue<Vector2>().x;
         }
+
+        private void OnDestroy()
+        {
+            Debug.Log("Player.OnDestroy");
+        }
     }
 }
