@@ -24,5 +24,6 @@ MonoBehaviour:
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6
+  prevLevel: {fileID: 11400000, guid: dec2137bdaa9fbd46b7c33307b1972c5, type: 2}
   nextLevel: {fileID: 11400000, guid: 320adeff43f974c43b9b29ebc5136a1b, type: 2}
   canDoubleJump: 0

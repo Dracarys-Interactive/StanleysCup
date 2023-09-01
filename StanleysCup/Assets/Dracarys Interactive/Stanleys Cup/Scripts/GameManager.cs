@@ -319,5 +319,30 @@ namespace DracarysInteractive.StanleysCup
         {
             miniMap.SetActive(!miniMap.activeSelf);
         }
+
+        public void NextLevel()
+        {
+            if (currentLevel.nextLevel)
+            {
+                LevelComplete();
+            }
+        }
+
+        public void PrevLevel()
+        {
+            if (currentLevel.prevLevel)
+            {
+                currentLevel = currentLevel.prevLevel;
+
+                GameState.Instance.LevelName = currentLevel.name;
+                GameState.Instance.LevelScore = 0;
+                GameState.Instance.LevelLivesLost = 0;
+
+                score = 0;
+                lives = currentLevel.lives;
+
+                StartLevel();
+            }
+        }
     }
 }
