@@ -38,6 +38,10 @@ namespace DracarysInteractive.StanleysCup
 
         public bool resetGameState = false;
 
+        public bool paused = false;
+        public Sprite[] pausePlaySprites;
+        public Image pausePlayImage;
+
         // private variables
         GameObject _player;
         Scene _scene;
@@ -216,7 +220,7 @@ namespace DracarysInteractive.StanleysCup
                 return;
 
             // set the text elements of the UI
-            UIScore.text = "Score: " + score.ToString();
+            UIScore.text = "Score: " + score.ToString() + "/" + currentLevel.pointsToAdvance;
 
             // turn on the appropriate number of life indicators in the UI based on the number of lives left
             for (int i = 0; i < UIExtraLives.Length; i++)
@@ -241,7 +245,7 @@ namespace DracarysInteractive.StanleysCup
             GameState.Instance.LevelScore = score;
 
             // update UI
-            UIScore.text = "Score: " + score.ToString();
+            UIScore.text = "Score: " + score.ToString() + "/" + currentLevel.pointsToAdvance;
 
             // Check for victory.
             if (score >= currentLevel.pointsToAdvance)
@@ -303,7 +307,7 @@ namespace DracarysInteractive.StanleysCup
 
         public void TogglePause()
         {
-            if (Time.timeScale > 0)
+            if (!paused)
             {
                 Time.timeScale = 0;
                 audioSource.Pause();
@@ -313,6 +317,10 @@ namespace DracarysInteractive.StanleysCup
                 Time.timeScale = 1;
                 audioSource.UnPause();
             }
+
+            paused = !paused;
+
+            pausePlayImage.sprite = pausePlaySprites[paused ? 0 : 1];
         }
 
         public void ToggleMiniMap()
@@ -322,7 +330,7 @@ namespace DracarysInteractive.StanleysCup
 
         public void NextLevel()
         {
-            if (currentLevel.nextLevel)
+            if (Debug.isDebugBuild && currentLevel.nextLevel)
             {
                 LevelComplete();
             }
@@ -330,7 +338,7 @@ namespace DracarysInteractive.StanleysCup
 
         public void PrevLevel()
         {
-            if (currentLevel.prevLevel)
+            if (Debug.isDebugBuild && currentLevel.prevLevel)
             {
                 currentLevel = currentLevel.prevLevel;
 
