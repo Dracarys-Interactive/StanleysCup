@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Dracarys Splash.unity
     guid: 98dcbfa18cb33574fa4315bdca5a0478
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 1fe77269da923bf40b986b7412053a00
-  - enabled: 1
     path: Assets/Scenes/Level Play.unity
     guid: 96d63776120aa974499f6fef255d75a0
   - enabled: 1

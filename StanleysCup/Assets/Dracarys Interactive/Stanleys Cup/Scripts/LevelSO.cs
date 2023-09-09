@@ -19,5 +19,6 @@ namespace DracarysInteractive.StanleysCup
         public LevelSO prevLevel;
         public LevelSO nextLevel;
         public bool canDoubleJump;
+        public bool isTutorial = false;
     }
 }

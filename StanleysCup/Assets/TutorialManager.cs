@@ -34,7 +34,7 @@ namespace DracarysInteractive.StanleysCup
 
         public void Play()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            GameManager.Instance.ResumeLastLevel();
         }
     }
 }

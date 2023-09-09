@@ -25,6 +25,7 @@ MonoBehaviour:
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6
-  nextLevel: {fileID: 11400000}
+  prevLevel: {fileID: 0}
+  nextLevel: {fileID: 11400000, guid: f2b8eac7b746b4744bb9304be7af259b, type: 2}
   canDoubleJump: 1
-  preserveGameState: 0
+  isTutorial: 1

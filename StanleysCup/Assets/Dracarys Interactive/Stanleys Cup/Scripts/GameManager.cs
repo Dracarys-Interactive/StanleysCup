@@ -42,6 +42,8 @@ namespace DracarysInteractive.StanleysCup
         public Sprite[] pausePlaySprites;
         public Image pausePlayImage;
 
+        public GameObject[] tutorialOnlyGameObjects;
+
         // private variables
         GameObject _player;
         Scene _scene;
@@ -60,11 +62,40 @@ namespace DracarysInteractive.StanleysCup
 
             audioSource = GetComponent<AudioSource>();
 
+            if (!currentLevel.isTutorial)
+            {
+                string levelName = GameState.Instance.LevelName;
+                LevelSO level = Resources.Load("Levels/" + levelName + "/" + levelName) as LevelSO;
+
+                if (!level)
+                {
+                    GameState.Instance.LevelName = currentLevel.name;
+                    GameState.Instance.LevelScore = 0;
+                    GameState.Instance.LevelLivesLost = 0;
+
+                    score = 0;
+                    lives = currentLevel.lives;
+                }
+                else
+                {
+                    currentLevel = level;
+                    score = GameState.Instance.LevelScore;
+                    lives = currentLevel.lives - GameState.Instance.LevelLivesLost;
+                }
+            }
+
+            refreshGUI();
+        }
+
+        public void ResumeLastLevel()
+        {
             string levelName = GameState.Instance.LevelName;
             LevelSO level = Resources.Load("Levels/" + levelName + "/" + levelName) as LevelSO;
 
             if (!level)
             {
+                level = currentLevel.nextLevel;
+
                 GameState.Instance.LevelName = currentLevel.name;
                 GameState.Instance.LevelScore = 0;
                 GameState.Instance.LevelLivesLost = 0;
@@ -79,7 +110,7 @@ namespace DracarysInteractive.StanleysCup
                 lives = currentLevel.lives - GameState.Instance.LevelLivesLost;
             }
 
-            refreshGUI();
+            StartLevel();
         }
 
         public void PlaySound(AudioClip clip)
@@ -131,6 +162,14 @@ namespace DracarysInteractive.StanleysCup
 
         void StartLevel()
         {
+            if (!currentLevel.isTutorial)
+            {
+                foreach(GameObject go in tutorialOnlyGameObjects)
+                {
+                    go.SetActive(false);
+                }
+            }
+
             miniMapToggleButton.gameObject.SetActive(currentLevel.hasMiniMap);
             enableDoubleJump = currentLevel.canDoubleJump;
 
@@ -285,21 +324,29 @@ namespace DracarysInteractive.StanleysCup
         // public function for level complete
         public void LevelComplete()
         {
-            currentLevel = currentLevel.nextLevel;
-
-            if (!currentLevel)
+            if (currentLevel.isTutorial)
             {
-                GameState.Instance.Clear();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                score = 0;
+                lives = currentLevel.lives;
             }
             else
             {
-                GameState.Instance.LevelName = currentLevel.name;
-                GameState.Instance.LevelScore = 0;
-                GameState.Instance.LevelLivesLost = 0;
+                currentLevel = currentLevel.nextLevel;
 
-                score = 0;
-                lives = currentLevel.lives;
+                if (!currentLevel)
+                {
+                    GameState.Instance.Clear();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+                else
+                {
+                    GameState.Instance.LevelName = currentLevel.name;
+                    GameState.Instance.LevelScore = 0;
+                    GameState.Instance.LevelLivesLost = 0;
+
+                    score = 0;
+                    lives = currentLevel.lives;
+                }
             }
 
             StartLevel();
