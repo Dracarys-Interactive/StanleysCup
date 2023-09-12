@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DracarysInteractive.StanleysCup
@@ -7,7 +6,7 @@ namespace DracarysInteractive.StanleysCup
     public class Enemy : MonoBehaviour
     {
         public AudioClip sfxUponPlayerCollision;
-        public ParticleSystem vfxUponPlayerCollision;
+        public float delayAfterSFX = 0.1f;
 
         private bool _collidedWithPlayer = false;
 
@@ -27,12 +26,14 @@ namespace DracarysInteractive.StanleysCup
             if (sfxUponPlayerCollision)
                 GameManager.Instance.PlaySound(sfxUponPlayerCollision);
 
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(delayAfterSFX);
             
             GameManager.Instance.ResetGame();
+
+            Destroy(gameObject);
         }
 
-        public void Disappear()
+        void Disappear()
         {
             Destroy(gameObject);
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DracarysInteractive.StanleysCup
@@ -9,20 +8,14 @@ namespace DracarysInteractive.StanleysCup
     {
         public int points = 1;
         public AudioClip sfxWhenCollected;
-        public ParticleSystem vfxWhenCollected;
+        public float delayAfterSFX = 0.1f;
         public Action<GameObject> onDestroy;
 
-        private AudioSource _audioSource;
         private bool _collected = false;
-
-        private void Awake()
-        {
-            _audioSource = GetComponent<AudioSource>();
-        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "Player" && !_collected)
+            if (collision.CompareTag("Player") && !_collected)
             {
                 _collected = true;
                 StartCoroutine(Collected());
@@ -36,7 +29,7 @@ namespace DracarysInteractive.StanleysCup
 
             GameManager.Instance.AddPoints(points);
 
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(delayAfterSFX);
 
             Destroy(gameObject);
         }
