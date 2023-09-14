@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI; // include UI namespace so can reference UI elements
-using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Events;
-using System;
 
 namespace DracarysInteractive.StanleysCup
 {
@@ -21,11 +17,9 @@ namespace DracarysInteractive.StanleysCup
         public LevelSO currentLevel;
         public TextMeshProUGUI levelName;
 
-        // game performance
         public int score = 0;
         public int lives = 0;
 
-        // UI elements to control
         public TextMeshProUGUI UIScore;
         public TextMeshProUGUI UILevel;
         public TextMeshProUGUI UISplash;
@@ -44,13 +38,11 @@ namespace DracarysInteractive.StanleysCup
 
         public GameObject[] tutorialOnlyGameObjects;
 
-        // private variables
-        GameObject _player;
-        Scene _scene;
-        AudioSource audioSource;
-        bool doPause = false;
+        private GameObject _player;
+        private Scene _scene;
+        private AudioSource _audioSource;
+        private bool _doPause = false;
 
-        // set things up here
         protected override void Awake()
         {
             base.Awake();
@@ -60,7 +52,7 @@ namespace DracarysInteractive.StanleysCup
                 GameState.Instance.Clear();
             }
 
-            audioSource = GetComponent<AudioSource>();
+            _audioSource = GetComponent<AudioSource>();
 
             if (!currentLevel.isTutorial)
             {
@@ -115,17 +107,17 @@ namespace DracarysInteractive.StanleysCup
 
         public void PlaySound(AudioClip clip)
         {
-            audioSource.PlayOneShot(clip);
+            _audioSource.PlayOneShot(clip);
         }
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            doPause = context.performed;
+            _doPause = context.performed;
         }
 
         void Update()
         {
-            if (doPause)
+            if (_doPause)
             {
                 if (Time.timeScale > 0f)
                 {
@@ -139,7 +131,7 @@ namespace DracarysInteractive.StanleysCup
                     Time.timeScale = 1f;
                 }
 
-                doPause = false;
+                _doPause = false;
             }
 
             if (Time.timeScale > 0f && UISplash.color.a > 0)
@@ -148,11 +140,6 @@ namespace DracarysInteractive.StanleysCup
                 c.a -= splashFade;
                 UISplash.color = c;
             }
-        }
-
-        private void OnPlayerOutOfBounds(GameObject player)
-        {
-            Debug.Log("OnPlayerOutOfBounds");
         }
 
         private void Start()
@@ -164,7 +151,7 @@ namespace DracarysInteractive.StanleysCup
         {
             if (!currentLevel.isTutorial)
             {
-                foreach(GameObject go in tutorialOnlyGameObjects)
+                foreach (GameObject go in tutorialOnlyGameObjects)
                 {
                     go.SetActive(false);
                 }
@@ -176,7 +163,6 @@ namespace DracarysInteractive.StanleysCup
             if (!_player)
             {
                 _player = Instantiate(playerPrefab);
-                _player.GetComponent<Player>().playerOutOfBounds.AddListener(OnPlayerOutOfBounds);
                 followCam.Follow = _player.transform;
             }
 
@@ -252,20 +238,14 @@ namespace DracarysInteractive.StanleysCup
             refreshGUI();
         }
 
-        // refresh all the GUI elements
         void refreshGUI()
         {
-            if (!UIScore || !UILevel)
-                return;
-
-            // set the text elements of the UI
             UIScore.text = "Score: " + score.ToString() + "/" + currentLevel.pointsToAdvance;
 
-            // turn on the appropriate number of life indicators in the UI based on the number of lives left
             for (int i = 0; i < UIExtraLives.Length; i++)
             {
                 if (i < (lives - 1))
-                { // show one less than the number of lives since you only typically show lifes after the current life in UI
+                {
                     UIExtraLives[i].SetActive(true);
                 }
                 else
@@ -275,26 +255,20 @@ namespace DracarysInteractive.StanleysCup
             }
         }
 
-        // public function to add points and update the gui and highscore player prefs accordingly
         public void AddPoints(int amount)
         {
-            // increase score
             score += amount;
 
             GameState.Instance.LevelScore = score;
 
-            // update UI
             UIScore.text = "Score: " + score.ToString() + "/" + currentLevel.pointsToAdvance;
 
-            // Check for victory.
             if (score >= currentLevel.pointsToAdvance)
                 LevelComplete();
         }
 
-        // public function to remove player life and reset game accordingly
         public void ResetGame()
         {
-            //Destroy(_player);
             lives--;
             GameState.Instance.LevelLivesLost++;
 
@@ -321,7 +295,6 @@ namespace DracarysInteractive.StanleysCup
             refreshGUI();
         }
 
-        // public function for level complete
         public void LevelComplete()
         {
             if (currentLevel.isTutorial)
@@ -357,12 +330,12 @@ namespace DracarysInteractive.StanleysCup
             if (!paused)
             {
                 Time.timeScale = 0;
-                audioSource.Pause();
+                _audioSource.Pause();
             }
             else
             {
                 Time.timeScale = 1;
-                audioSource.UnPause();
+                _audioSource.UnPause();
             }
 
             paused = !paused;
