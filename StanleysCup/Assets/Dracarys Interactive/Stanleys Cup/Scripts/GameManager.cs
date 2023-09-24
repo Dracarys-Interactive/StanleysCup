@@ -86,7 +86,7 @@ namespace DracarysInteractive.StanleysCup
 
             if (!level)
             {
-                level = currentLevel.nextLevel;
+                level = currentLevel = currentLevel.nextLevel;
 
                 GameState.Instance.LevelName = currentLevel.name;
                 GameState.Instance.LevelScore = 0;
