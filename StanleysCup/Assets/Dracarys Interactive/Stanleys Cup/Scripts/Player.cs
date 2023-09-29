@@ -12,6 +12,7 @@ namespace DracarysInteractive.StanleysCup
         public RectTransform bounds;
         public bool inBounds;
         public Vector2 playerOffset = new Vector2(0, 0.056f);
+        public bool winState = false;
 
         private Animator _animator;
         private Rigidbody2D _rigidBody;
@@ -27,6 +28,13 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
+            if (winState)
+            {
+                _animator.SetBool("Grounded", true);
+                GameState.Instance.Clear();
+                return;
+            }
+
             bool isGrounded = _animator.GetBool("Grounded");
 
             if (GameManager.Instance.enableDoubleJump && isGrounded)
