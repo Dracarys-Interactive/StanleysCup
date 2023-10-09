@@ -10,5 +10,6 @@ namespace DracarysInteractive.StanleysCup
         public Vector2 position;
         public float width;
         public float height;
+        //public Rect rect;
     }
 }

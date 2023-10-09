@@ -3,7 +3,7 @@
 *Dracarys Interactive supplies Unity-based games, tools, and templates for creating quality interactive 2D, 3D, and XR applications.*
 # *Stanley's Cup!*
 ![Alt text](Art/unity.png)
-*Stanley's Cup!* is a simple 2D platform game intended for mobile devices. The player controls the main character through swipe and tap gestures that cause Stanley to walk or jump. The goal of the player is to ensure Stanley remains within the boundaries of the rink while collecting pucks by hopping between moving hockey stick platforms.
+*Stanley's Cup!* is a simple 2D platform game intended for mobile devices. The player controls the main character through swipe and tap gestures that cause Stanley to walk or jump. The goal of the player is to ensure Stanley remains within the boundaries of the rink while collecting pucks by hopping between moving hockey stick platforms and avoiding challenges.
 
 The game begins with an interactive tutorial that allows players to cycle through small text tutorials and practice essential game mechanics. When the player is ready, they may tap the *PLAY!* button and proceed to either the first level or the last level played. Levels have fun names that reflect features like:
 * The movement of the hockey stick platforms.

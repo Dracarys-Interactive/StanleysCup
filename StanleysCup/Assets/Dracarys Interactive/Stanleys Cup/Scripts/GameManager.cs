@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Cinemachine;
 using UnityEngine.Rendering.Universal;
+using System;
 
 namespace DracarysInteractive.StanleysCup
 {
     public class GameManager : Singleton<GameManager>
     {
         public GameObject playerPrefab;
-        public int minPlatformsToSpawnPlayer = 2;
         public CinemachineVirtualCamera followCam;
 
         public LevelSO currentLevel;
@@ -82,7 +82,7 @@ namespace DracarysInteractive.StanleysCup
         public void ResumeLastLevel()
         {
             string levelName = GameState.Instance.LevelName;
-            LevelSO level = Resources.Load("Levels/" + levelName + "/" + levelName) as LevelSO;
+            LevelSO level = Resources.Load("Levels/" + levelName) as LevelSO;
 
             if (!level)
             {
@@ -117,6 +117,11 @@ namespace DracarysInteractive.StanleysCup
 
         void Update()
         {
+            if (!_player)
+            {
+                InstantiatePlayer();
+            }
+
             if (_doPause)
             {
                 if (Time.timeScale > 0f)
@@ -142,13 +147,35 @@ namespace DracarysInteractive.StanleysCup
             }
         }
 
+        private void InstantiatePlayer()
+        {
+            Platform platform = findPlatformClosestToOrigin();
+
+            if (platform)
+            {
+                _player = Instantiate(playerPrefab);
+                _player.transform.parent = platform.transform;
+                _player.transform.localPosition = new Vector2(0, 0.4f);
+                _player.GetComponent<Animator>().SetBool("Grounded", true);
+                _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
+
+                followCam.Follow = _player.transform;
+            }
+        }
+
         private void Start()
         {
+            ParticleSystem snow = FindObjectOfType<ParticleSystem>();
+            var emission = snow.emission;
+            emission.rateOverTime = 20;
+
             StartLevel();
         }
 
         void StartLevel()
         {
+            Destroy(_player);
+
             if (!currentLevel.isTutorial)
             {
                 foreach (GameObject go in tutorialOnlyGameObjects)
@@ -159,15 +186,6 @@ namespace DracarysInteractive.StanleysCup
 
             miniMapToggleButton.gameObject.SetActive(currentLevel.hasMiniMap);
             enableDoubleJump = currentLevel.canDoubleJump;
-
-            if (!_player)
-            {
-                _player = Instantiate(playerPrefab);
-                followCam.Follow = _player.transform;
-            }
-
-            _player.transform.parent = null;
-            _player.GetComponent<Light2D>().enabled = currentLevel.useSpotLight;
 
             foreach (Transform child in transform)
             {
@@ -203,16 +221,6 @@ namespace DracarysInteractive.StanleysCup
                     randomSpawner.maximumInstances = platform.maximumInstances;
                     randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
                     randomSpawner.spawnableSO = platform;
-
-                    if (!_player.transform.parent)
-                    {
-                        GameObject spawn = randomSpawner.Spawn();
-                        spawn.transform.position = Vector3.zero;
-
-                        _player.transform.parent = spawn.transform;
-                        _player.transform.localPosition = new Vector2(0, 0.4f);
-                        _player.GetComponent<Animator>().SetBool("Grounded", true);
-                    }
                 }
             }
 
@@ -230,10 +238,6 @@ namespace DracarysInteractive.StanleysCup
                     randomSpawner.spawnableSO = enemy;
                 }
             }
-
-            ParticleSystem snow = FindObjectOfType<ParticleSystem>();
-            var emission = snow.emission;
-            emission.rateOverTime = 20;
 
             refreshGUI();
         }
@@ -269,6 +273,8 @@ namespace DracarysInteractive.StanleysCup
 
         public void ResetGame()
         {
+            Destroy(_player);
+
             lives--;
             GameState.Instance.LevelLivesLost++;
 
@@ -281,18 +287,27 @@ namespace DracarysInteractive.StanleysCup
                 lives = currentLevel.lives;
                 StartLevel();
             }
-            else
-            {
-                Platform platform = GameObject.FindAnyObjectByType<Platform>();
-                platform.transform.position = Vector3.zero;
-                platform.speed /= 2;
-
-                _player.transform.parent = platform.transform;
-                _player.transform.localPosition = new Vector2(0, 0.4f);
-                _player.GetComponent<Animator>().SetBool("Grounded", true);
-            }
 
             refreshGUI();
+        }
+
+        private Platform findPlatformClosestToOrigin()
+        {
+            Platform closestToOrigin = null;
+            float minDistance = float.MaxValue;
+
+            foreach (Platform platform in GameObject.FindObjectsOfType<Platform>())
+            {
+                float distanceFromOrigin = Vector2.Distance(platform.transform.position, Vector2.zero);
+
+                if (distanceFromOrigin < minDistance && currentLevel.playerSpawningRect.Contains(platform.transform.position))
+                {
+                    closestToOrigin = platform;
+                    minDistance = distanceFromOrigin;
+                }
+            }
+
+            return closestToOrigin;
         }
 
         public void LevelComplete()

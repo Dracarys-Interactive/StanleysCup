@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de1306ad465dba4ea7db5cf08a1a836, type: 3}
+  m_Name: Dump Chase
+  m_EditorClassIdentifier: 
+  levelName: 'Dump ''n
+
+    Chase'
+  collectables:
+  - {fileID: 11400000, guid: 8c7447f8231278643adcbc7857c08c55, type: 2}
+  platforms:
+  - {fileID: 11400000, guid: a64d0b6ed6a028b4abe8342c323a0ec5, type: 2}
+  enemies: []
+  pointsToAdvance: 10
+  hasMiniMap: 1
+  useSpotLight: 0
+  lives: 6
+  prevLevel: {fileID: 11400000, guid: a2901453ed10692459e54ba144407e0e, type: 2}
+  nextLevel: {fileID: 11400000, guid: 795af8d338e372c4ebe63403d2968133, type: 2}
+  canDoubleJump: 0
+  isTutorial: 0
+  playerSpawningRect:
+    serializedVersion: 2
+    x: -12
+    y: -4
+    width: 16
+    height: 8

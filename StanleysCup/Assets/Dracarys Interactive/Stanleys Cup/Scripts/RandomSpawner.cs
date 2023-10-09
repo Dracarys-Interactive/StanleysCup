@@ -17,7 +17,7 @@ namespace DracarysInteractive.StanleysCup
 
         void Start()
         {
-            while (queue.Count < Mathf.Min(5, maximumInstances / 2))
+            while (queue.Count < Mathf.Min(5, maximumInstances))
             {
                 Spawn();
             }
@@ -42,8 +42,8 @@ namespace DracarysInteractive.StanleysCup
             if (spawnableSO)
             {
                 spawn.transform.position = new Vector3(
-                    Random.Range(spawnableSO.spawningRect.position.x - spawnableSO.spawningRect.width / 2, spawnableSO.spawningRect.position.x + spawnableSO.spawningRect.width / 2),
-                    Random.Range(spawnableSO.spawningRect.position.y - spawnableSO.spawningRect.height / 2, spawnableSO.spawningRect.position.y + spawnableSO.spawningRect.height / 2),
+                    Random.Range(spawnableSO.spawningRect.center.x - spawnableSO.spawningRect.width / 2, spawnableSO.spawningRect.center.x + spawnableSO.spawningRect.width / 2),
+                    Random.Range(spawnableSO.spawningRect.center.y - spawnableSO.spawningRect.height / 2, spawnableSO.spawningRect.center.y + spawnableSO.spawningRect.height / 2),
                     0);
 
                 Platform platform = spawn.GetComponent<Platform>();
