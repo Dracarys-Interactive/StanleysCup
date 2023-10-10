@@ -82,6 +82,15 @@ namespace DracarysInteractive.StanleysCup
             transform.localScale = localScale;
         }
 
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (collision.gameObject.GetComponent<Platform>())
+            {
+                transform.parent = collision.transform;
+                _animator.SetBool("Grounded", true);
+            }
+        }
+
         void OnCollisionEnter2D(Collision2D other)
         {
             transform.parent = other.transform;

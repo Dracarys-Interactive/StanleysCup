@@ -151,7 +151,7 @@ namespace DracarysInteractive.StanleysCup
         {
             Platform platform = findPlatformClosestToOrigin();
 
-            if (platform)
+            if (platform && !platform.transform.GetComponentInChildren<Enemy>())
             {
                 _player = Instantiate(playerPrefab);
                 _player.transform.parent = platform.transform;
