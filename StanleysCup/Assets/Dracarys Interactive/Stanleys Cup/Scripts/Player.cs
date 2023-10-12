@@ -26,7 +26,7 @@ namespace DracarysInteractive.StanleysCup
             _rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (winState)
             {
@@ -44,17 +44,18 @@ namespace DracarysInteractive.StanleysCup
 
             if ((isGrounded || _canDoubleJump) && _doJump)
             {
-                _rigidBody.AddForce(new Vector2(0, jumpForce));
+                _rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Force);
                 _canDoubleJump = GameManager.Instance.enableDoubleJump && isGrounded;
+                Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"), true);
             }
             else
             {
                 _animator.SetBool("Walking", _vx != 0);
                 _rigidBody.velocity = new Vector2(_vx * moveSpeed, _rigidBody.velocity.y);
-            }
 
-            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"),
-                !_animator.GetBool("Grounded") && _rigidBody.velocity.y > 0.0f);
+                Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"),
+                    !isGrounded && _rigidBody.velocity.y > 0.0f);
+            }
 
             // Player can only be out-of-bounds if not grounded and above bounds.
             if (!(inBounds = isInBounds()))
