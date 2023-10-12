@@ -6,109 +6,105 @@ namespace DracarysInteractive.StanleysCup
 {
     public class RandomSpawner : MonoBehaviour
     {
-        public GameObject prefab;
-        public float secondsBetweenSpawns = 0.5f;
-        public int maximumInstances = -1;
-        //public RectTransform spawningRect;
         public SpawnableSO spawnableSO;
 
-        private float timeOfLastSpawn = 0f;
-        private Queue<GameObject> queue = new Queue<GameObject>();
+        private float _timeOfLastSpawn = 0f;
+        private Queue<GameObject> _queue = new Queue<GameObject>();
 
         void Start()
         {
-            while (queue.Count < Mathf.Min(5, maximumInstances))
+            if (!spawnableSO.persistent)
             {
-                Spawn();
+                while (_queue.Count < Mathf.Min(5, spawnableSO.maximumInstances))
+                {
+                    Spawn();
+                }
             }
         }
 
         void Update()
         {
-            if ((queue.Count < maximumInstances || !spawnableSO.persistent) && secondsBetweenSpawns > 0 && Time.time - timeOfLastSpawn > secondsBetweenSpawns)
+            if ((_queue.Count < spawnableSO.maximumInstances || !spawnableSO.persistent) && spawnableSO.secondsBetweenSpawns > 0 && Time.time - _timeOfLastSpawn > spawnableSO.secondsBetweenSpawns)
                 Spawn();
 
-            if (!spawnableSO.persistent && maximumInstances > 0 && queue.Count > maximumInstances)
-                Disappear(queue.Dequeue());
+            if (!spawnableSO.persistent && spawnableSO.maximumInstances > 0 && _queue.Count > spawnableSO.maximumInstances)
+                Disappear(_queue.Dequeue());
         }
 
         public GameObject Spawn()
         {
-            GameObject spawn = Instantiate(prefab, transform);
+            GameObject spawn = Instantiate(spawnableSO.prefab, transform);
 
-            if (maximumInstances > 0)
-                queue.Enqueue(spawn);
+            if (spawnableSO.maximumInstances > 0)
+                _queue.Enqueue(spawn);
 
-            if (spawnableSO)
+            spawn.transform.position = new Vector3(
+                Random.Range(spawnableSO.spawningRect.center.x - spawnableSO.spawningRect.width / 2, spawnableSO.spawningRect.center.x + spawnableSO.spawningRect.width / 2),
+                Random.Range(spawnableSO.spawningRect.center.y - spawnableSO.spawningRect.height / 2, spawnableSO.spawningRect.center.y + spawnableSO.spawningRect.height / 2),
+                0);
+
+            Platform platform = spawn.GetComponent<Platform>();
+
+            if (platform)
             {
-                spawn.transform.position = new Vector3(
-                    Random.Range(spawnableSO.spawningRect.center.x - spawnableSO.spawningRect.width / 2, spawnableSO.spawningRect.center.x + spawnableSO.spawningRect.width / 2),
-                    Random.Range(spawnableSO.spawningRect.center.y - spawnableSO.spawningRect.height / 2, spawnableSO.spawningRect.center.y + spawnableSO.spawningRect.height / 2),
-                    0);
+                PlatformSO platformSO = (PlatformSO)spawnableSO;
 
-                Platform platform = spawn.GetComponent<Platform>();
-
-                if (platform)
+                if (platformSO.movement == PlatformSO.Movement.down || platformSO.movement == PlatformSO.Movement.left)
                 {
-                    PlatformSO platformSO = (PlatformSO)spawnableSO;
-
-                    if (platformSO.movement == PlatformSO.Movement.down || platformSO.movement == PlatformSO.Movement.left)
-                    {
-                        platform.speed *= -1;
-                        platform.speedVariance *= -1;
-                    }
-                    else if (platformSO.movement == PlatformSO.Movement.stationary)
-                    {
-                        platform.speed = 0;
-                        platform.speedVariance = 0;
-                    }
-                    else if (platformSO.movement == PlatformSO.Movement.waypoints)
-                    {
-                        platform.waypoints = platformSO.waypoints;
-                    }
-
-                    platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
+                    platform.speed *= -1;
+                    platform.speedVariance *= -1;
+                }
+                else if (platformSO.movement == PlatformSO.Movement.stationary)
+                {
+                    platform.speed = 0;
+                    platform.speedVariance = 0;
+                }
+                else if (platformSO.movement == PlatformSO.Movement.waypoints)
+                {
+                    platform.waypoints = platformSO.waypoints;
                 }
 
-                Enemy enemy = spawn.GetComponent<Enemy>();
+                platform.yaxis = platformSO.movement == PlatformSO.Movement.up || platformSO.movement == PlatformSO.Movement.down;
+            }
 
-                if (enemy)
+            Enemy enemy = spawn.GetComponent<Enemy>();
+
+            if (enemy)
+            {
+                EnemySO enemySO = (EnemySO)spawnableSO;
+
+                if (enemySO.placeOnPlatform)
                 {
-                    EnemySO enemySO = (EnemySO)spawnableSO;
+                    Platform[] platforms = FindObjectsByType<Platform>(FindObjectsSortMode.None);
 
-                    if (enemySO.placeOnPlatform)
+                    enemy.transform.parent = null;
+                    shuffle(platforms);
+
+                    for (int i = 0; i < platforms.Length || !enemy.transform.parent; i++)
                     {
-                        Platform[] platforms = FindObjectsByType<Platform>(FindObjectsSortMode.None);
+                        Platform parent = platforms[i];
 
-                        enemy.transform.parent = null;
-                        shuffle(platforms);
-
-                        for (int i = 0; i < platforms.Length || !enemy.transform.parent; i++)
+                        if (!parent.GetComponentInChildren<Enemy>() && !parent.GetComponentInChildren<Player>())
                         {
-                            Platform parent = platforms[i];
-
-                            if (!parent.GetComponentInChildren<Enemy>() && !parent.GetComponentInChildren<Player>())
-                            {
-                                enemy.transform.position = Vector2.zero;
-                                enemy.transform.parent = parent.gameObject.transform;
-                                enemy.transform.localPosition = new Vector2(0, 0.25f);
-                            }
-                        }
-
-                        if (!enemy.transform.parent)
-                        {
-                            Debug.Log("can't place Enemy on platform, destroying...");
-                            Destroy(spawn);
+                            enemy.transform.position = Vector2.zero;
+                            enemy.transform.parent = parent.gameObject.transform;
+                            enemy.transform.localPosition = new Vector2(0, 0.25f);
                         }
                     }
-                }
 
-                Collectable collectable = spawn.GetComponent<Collectable>();
-
-                if (collectable)
-                {
-                    collectable.onDestroy = RemoveSpawn;
+                    if (!enemy.transform.parent)
+                    {
+                        Debug.Log("can't place Enemy on platform, destroying...");
+                        Destroy(spawn);
+                    }
                 }
+            }
+
+            Collectable collectable = spawn.GetComponent<Collectable>();
+
+            if (collectable)
+            {
+                collectable.onDestroy = RemoveSpawn;
             }
             /*
             else
@@ -118,7 +114,7 @@ namespace DracarysInteractive.StanleysCup
             }
             */
 
-            timeOfLastSpawn = Time.time;
+            _timeOfLastSpawn = Time.time;
 
             return spawn;
         }
@@ -149,12 +145,12 @@ namespace DracarysInteractive.StanleysCup
 
         public void RemoveSpawn(GameObject spawn)
         {
-            if (queue.Contains(spawn))
+            if (_queue.Contains(spawn))
             {
                 List<GameObject> list = new List<GameObject>();
-                while(queue.Count > 0)
+                while (_queue.Count > 0)
                 {
-                    GameObject go = queue.Dequeue();
+                    GameObject go = _queue.Dequeue();
 
                     if (go != spawn)
                     {
@@ -164,7 +160,7 @@ namespace DracarysInteractive.StanleysCup
 
                 foreach (GameObject go in list)
                 {
-                    queue.Enqueue(go);
+                    _queue.Enqueue(go);
                 }
             }
         }

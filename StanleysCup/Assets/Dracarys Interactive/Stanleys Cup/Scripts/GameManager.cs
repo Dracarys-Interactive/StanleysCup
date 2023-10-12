@@ -202,9 +202,6 @@ namespace DracarysInteractive.StanleysCup
                     go.transform.SetParent(transform);
 
                     RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                    randomSpawner.prefab = collectable.prefab;
-                    randomSpawner.maximumInstances = collectable.maximumInstances;
-                    randomSpawner.secondsBetweenSpawns = collectable.secondsBetweenSpawns;
                     randomSpawner.spawnableSO = collectable;
                 }
             }
@@ -217,9 +214,6 @@ namespace DracarysInteractive.StanleysCup
                     go.transform.SetParent(transform);
 
                     RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                    randomSpawner.prefab = platform.prefab;
-                    randomSpawner.maximumInstances = platform.maximumInstances;
-                    randomSpawner.secondsBetweenSpawns = platform.secondsBetweenSpawns;
                     randomSpawner.spawnableSO = platform;
                 }
             }
@@ -232,9 +226,6 @@ namespace DracarysInteractive.StanleysCup
                     go.transform.SetParent(transform);
 
                     RandomSpawner randomSpawner = go.AddComponent<RandomSpawner>();
-                    randomSpawner.prefab = enemy.prefab;
-                    randomSpawner.maximumInstances = enemy.maximumInstances;
-                    randomSpawner.secondsBetweenSpawns = enemy.secondsBetweenSpawns;
                     randomSpawner.spawnableSO = enemy;
                 }
             }

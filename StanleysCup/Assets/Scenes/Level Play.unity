@@ -2394,7 +2394,7 @@ MonoBehaviour:
   miniMap: {fileID: 522840276}
   miniMapToggleButton: {fileID: 1641554960}
   enableDoubleJump: 0
-  resetGameState: 0
+  resetGameState: 1
   paused: 0
   pausePlaySprites:
   - {fileID: -2139029338, guid: 665313e3537e8e940951ed076acb45cc, type: 3}

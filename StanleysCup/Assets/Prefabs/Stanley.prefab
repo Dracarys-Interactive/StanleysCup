@@ -188,14 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b106dbb06f897cb4baf0c8b7d846ae1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOutOfBounds:
-    m_PersistentCalls:
-      m_Calls: []
   moveSpeed: 4
   jumpForce: 600
   bounds: {fileID: 3560344349843619458, guid: 30da6e2795756fe48a482557037bd14c, type: 3}
   inBounds: 0
   playerOffset: {x: 0, y: 0.5}
+  winState: 0
 --- !u!114 &864099350709551445
 MonoBehaviour:
   m_ObjectHideFlags: 0

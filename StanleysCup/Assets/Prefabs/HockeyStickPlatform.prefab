@@ -104,6 +104,9 @@ MonoBehaviour:
   speedVariance: 0.5
   yaxis: 1
   isFixed: 1
+  waypoints: []
+  currentWaypoint: 0
+  moving: 1
 --- !u!50 &4969419485670326774
 Rigidbody2D:
   serializedVersion: 4
