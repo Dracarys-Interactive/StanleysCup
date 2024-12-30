@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85cd6fbc3e0af824985e11024154e6fd, type: 2}
   - {fileID: 11400000, guid: a2e60f904761e994ab904b806d9c14a5, type: 2}
   enemies: []
-  pointsToAdvance: 10
+  pointsToAdvance: 3
   hasMiniMap: 1
   useSpotLight: 0
   lives: 6

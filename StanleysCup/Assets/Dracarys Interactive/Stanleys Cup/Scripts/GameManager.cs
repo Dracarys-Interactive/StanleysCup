@@ -22,9 +22,7 @@ namespace DracarysInteractive.StanleysCup
 
         public TextMeshProUGUI UIScore;
         public TextMeshProUGUI UILevel;
-        public TextMeshProUGUI UISplash;
         public GameObject[] UIExtraLives;
-        public float splashFade = 0.005f;
         public GameObject miniMap;
         public Button miniMapToggleButton;
 
@@ -37,6 +35,9 @@ namespace DracarysInteractive.StanleysCup
         public Image pausePlayImage;
 
         public GameObject[] tutorialOnlyGameObjects;
+
+        public bool demoMode = false;
+        public int demoModePointsToAdvance = 3;
 
         private GameObject _player;
         private Scene _scene;
@@ -127,9 +128,6 @@ namespace DracarysInteractive.StanleysCup
                 if (Time.timeScale > 0f)
                 {
                     Time.timeScale = 0f;
-                    Color c = UISplash.color;
-                    c.a = 1.0f;
-                    UISplash.color = c;
                 }
                 else
                 {
@@ -137,13 +135,6 @@ namespace DracarysInteractive.StanleysCup
                 }
 
                 _doPause = false;
-            }
-
-            if (Time.timeScale > 0f && UISplash.color.a > 0)
-            {
-                Color c = UISplash.color;
-                c.a -= splashFade;
-                UISplash.color = c;
             }
         }
 
@@ -185,6 +176,12 @@ namespace DracarysInteractive.StanleysCup
             }
 
             miniMapToggleButton.gameObject.SetActive(currentLevel.hasMiniMap);
+
+            if (miniMap.activeSelf && !currentLevel.hasMiniMap)
+            {
+                miniMap.SetActive(false);
+            }
+
             enableDoubleJump = currentLevel.canDoubleJump;
 
             foreach (Transform child in transform)
@@ -229,6 +226,9 @@ namespace DracarysInteractive.StanleysCup
                     randomSpawner.spawnableSO = enemy;
                 }
             }
+
+            if (demoMode)
+                currentLevel.pointsToAdvance = demoModePointsToAdvance;
 
             refreshGUI();
         }
